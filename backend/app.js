@@ -19,7 +19,7 @@ app.use(cors({
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.resolve(__dirname, "../../DataViewINSS")));
+app.use(express.static(path.resolve(__dirname)));
 app.use(router);
 
 
