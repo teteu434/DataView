@@ -2,9 +2,12 @@ import DataViewRepository from '../repository/DataViewRepository.js'
 import { enviarEmail } from '../config/sendgrid.js'
 import { dataTimerExpirar } from '../config/date.js';
 import dotenv from 'dotenv';
-dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+import path from 'path'
+import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+
+dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
 
 
 class DataViewController {
