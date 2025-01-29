@@ -1,4 +1,4 @@
-import apps from './backend/app.js';
+import apps from './src/backend/app.js';
 import dotenv from 'dotenv'
 dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
 
