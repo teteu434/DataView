@@ -1,0 +1,334 @@
+import DataViewRepository from '../repository/DataViewRepository.js'
+import { enviarEmail } from '../config/sendgrid.js'
+import { dataTimerExpirar } from '../config/date.js';
+import dotenv from 'dotenv';
+dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+
+
+class DataViewController {
+    async gerarTabela(req, res){
+        const tabela = await DataViewRepository.getTabela();
+        res.json(tabela)
+    }
+
+    async usuarios(req, res){
+        const users = await DataViewRepository.getUsuarios();
+        res.json(users)
+    }
+
+    async sessao(req, res){
+        try{
+            const id = req.cookies.sessionId;
+            if(id){
+                const resultado = await DataViewRepository.usuarioLogado(id)
+                if(resultado.correto){
+                    if(resultado.resultado.length != 0) res.json({usuario: resultado.resultado[0].usuario, logado: true})
+                    else res.json({message: 'Sem sessão para esse ID', logado: false})
+                } else res.json({message: "Erro ao buscar sessão", logado: false})
+    
+            } else res.json({message: "Nenhum ID registrado", logado: false})
+        }catch(error){
+            console.log(error)
+        }
+
+
+    }
+
+    async confereSenha(req, res){
+        const {email, senha} = req.body;
+        const xixi = await bcrypt.hash(senha, 10)
+        const resultado = await DataViewRepository.confereDadosLogin(email)
+        if(resultado.resultado.length == 0){
+            res.status(404).json({ 
+                correto: false,
+                message: "Usuario não encontrado."
+            })
+        } 
+        else{
+            console.log(resultado.resultado[0].adm)
+            if(await bcrypt.compare(senha, resultado.resultado[0].senha)) res.status(200).json({ 
+                correto: true,
+                usuario: resultado.resultado[0].usuario,
+                message: "senha valida",
+                adm: resultado.resultado[0].adm,
+                contaHabilitada: resultado.resultado[0].contahabilitada,
+                emailConfirmado: resultado.resultado[0].emailconfirmado
+            })
+            else res.status(400).json({ 
+                correto: false,
+                message: "Usuário e/ou senha inválidos.",
+                pass: senha,
+                crypto: xixi})
+        }
+    }
+
+    async insertUser(req, res){
+        const {usuario, email, senha, adm, contaHabilitada} = req.body;
+        try {
+            const pass = await bcrypt.hash(senha, 10);
+            const resultado = await DataViewRepository.insertUser(usuario, email, pass, adm, contaHabilitada)
+            if(resultado.correto)
+            {
+                const token = crypto.randomBytes(16).toString('hex');
+                const timerexpirar = dataTimerExpirar();
+                const mensagem = `
+                    <h1>Confirme seu e-mail</h1>
+                    <p>Clique no botão abaixo para confirmar seu e-mail:</p>
+                    <a href= "http://localhost:${process.env.API_PORT_SITE}/confirmar-email?token=${token}">
+                        <button  type="button" class="btn btn-success px-5">Clique aqui</button>
+                    </a>
+                    `
+                    const result = await DataViewRepository.updateToken(token, timerexpirar, email);
+                    
+                    if(result.correto){
+                        if(result.update == 0){
+                            res.json(JSON.parse(JSON.stringify({ message: "Erro ao achar email",
+                                enviado: false
+                                })))
+                            
+                        } else{
+                            await enviarEmail(email, 'Confirmação de Email DataView', mensagem);
+                            res.json(JSON.parse(JSON.stringify({ enviado: true,
+                                message: 'Email enviado com sucesso! Conferir na caixa de mensagens.'
+                            })))
+                        }
+            
+                    } else res.json(JSON.parse(JSON.stringify({ resultado: result, message: result.message,
+                        enviado: false
+                    })))
+                
+            } else res.status(500).json({"correto": false, "mensagem": "Erro ao criar usuário"})
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    async reenviarEmail(req, res){
+        const {destinatario} = req.body;
+        try {
+            const token = crypto.randomBytes(16).toString('hex');
+            const timerexpirar = dataTimerExpirar();
+            const mensagem = `
+                <h1>Confirme seu e-mail</h1>
+                <p>Clique no botão abaixo para confirmar seu e-mail:</p>
+                <a href= "http://localhost:${process.env.API_PORT_SITE}/confirmar-email?token=${token}">
+                    <button  type="button" class="btn btn-success px-5">Clique aqui</button>
+                </a>
+                `
+                const result = await DataViewRepository.updateToken(token, timerexpirar, destinatario);
+                
+                if(result.correto){
+                    if(result.update == 0){
+                        res.json(JSON.parse(JSON.stringify({ message: "Erro ao achar email",
+                            enviado: false
+                            })))
+                        
+                    } else{
+                        await enviarEmail(destinatario, 'Reset de Senha', mensagem);
+                        res.json(JSON.parse(JSON.stringify({ enviado: true,
+                            message: 'Email enviado com sucesso! Conferir na caixa de mensagens.'
+                        })))
+                    }
+        
+                } else res.json(JSON.parse(JSON.stringify({ resultado: result, message: result.message,
+                    enviado: false
+                })))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
+    async confereEmail(req,res){
+        
+        const {destinatario} = req.body;
+
+        try {
+            const resultado = await DataViewRepository.confereEmail(destinatario)
+            if(resultado.correto){
+                if(resultado.resultado.length == 0){
+                    res.status(404).json({ message: "Email não encontrado em nossa base de dados",
+                        enviado: false
+                    })
+                } else{
+                    const token = crypto.randomBytes(16).toString('hex');
+                    
+                    const timerexpirar = dataTimerExpirar();
+                    const mensagem = `
+                    <h1>Resetar Senha</h1>
+                    <p>Clique no botão abaixo para ser redirecionado para resetar sua senha</p>
+                    <a href= "http://localhost:3000/resetPass.html?token=${token}">
+                        <button  type="button" class="btn btn-success px-5">Clique aqui</button>
+                    </a>
+                `
+                    const result = await DataViewRepository.updateToken(token, timerexpirar, destinatario);
+                    if(result.correto){
+                        await enviarEmail(destinatario, 'Reset de Senha', mensagem);
+                        res.status(200).json({ message: "email enviado",
+                            enviado: true
+                        })
+                    } else res.status(500).json({ message: result.message,
+                        enviado: false
+                    })
+    
+        
+                }
+            } else res.status(500).json({ message: "Erro ao achar usuário",
+                enviado: false
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    async confirmaEmail(req,res){
+        try {
+            const {token} = req.query;
+            const resultado = await DataViewRepository.confirmaEmail(token);
+            if(resultado.correto) res.redirect('/login.html')
+            else res.status(400).json(resultado)
+        } catch (error) {
+            console.log(error)
+        }
+
+        
+    }
+
+    async login(req,res){
+        const sessionId = Math.random().toString(36).substring(2);
+        const{email, usuario} = req.body;
+
+        try {
+            const resultado = await DataViewRepository.confereLogin(email)
+            if(resultado.correto){
+                if(resultado.resultado.length == 0){
+    
+                    const expiresat = dataTimerExpirar();
+                    const result = await DataViewRepository.insereLogin(sessionId, usuario, email, expiresat)
+                    if(result.correto){
+                        res.cookie('sessionId', sessionId, { httpOnly: true });
+                        res.status(200).json({message: "Logado com sucesso", logado: true})
+                    } 
+                    else res.status(500).json({message: "Erro ao iniciar sessão", logado: false})
+    
+                } else res.status(401).json({message: "Usuário já logado", logado: true})
+    
+                
+            } else res.status(500).json({message: "Erro ao buscar usuario", logado: false})
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    async logout(req,res){
+        const id = req.cookies.sessionId;
+        if(id){
+            const resultado = await DataViewRepository.logoutUsuario(id)
+            if(resultado.correto){
+                res.clearCookie('sessionId')
+                res.status(200).json({ message: 'Logout realizado com sucesso', redirect: 'login.html', deslogado: true });
+            } else res.status(500).json({ message: 'Erro ao encerrar a sessão', deslogado: false});
+
+        } else res.json({message: "nenhuma id registrado", logado: false})    
+        
+    }
+
+    async reset(req,res){
+        const {token, senha} = req.body;
+        const resultado = await DataViewRepository.confereTokenESenha(token);
+        console.log(resultado)
+        if(resultado.correto){
+            if(resultado.resultado.length == 0){
+                res.status(404).json({ 
+                    reset: false,
+                    message: "Token inválido/expirado. Solicite novamente o reset da senha."
+                })
+            }
+            else{
+                if(await bcrypt.compare(senha, resultado.resultado[0].senha)) res.status(400).json({ 
+                    reset: false,
+                    message: "A senha não pode ser a mesma da anterior."
+                })
+                else{
+                    const pass = await bcrypt.hash(senha, 10)
+                    const result = await DataViewRepository.updatePass(pass, token)
+                    if(result.update != 0){
+                        res.status(result.correto ? 202 : 500).json(result.correto ? 
+                            {
+                                reset: true,
+                                message: "Senha atualizada com sucesso, redirecionando para a página de Login!",
+                                redirect: 'login.html'
+                            } 
+                            :
+                            {
+                                reset: false,
+                                message: result.message
+                            }
+                        )
+                    } else res.status(404).json({reset: false, message: "Não foi encontrado este usuário"})
+
+
+                } 
+            }
+
+            
+        } else res.status(500).json({ message: resultado.message,
+            reset: false
+        })
+    }
+
+    async autenticarRota(req, res, next){
+            
+            const id = req.cookies.sessionId;
+            if(id){
+                const resultado = await DataViewRepository.usuarioLogado(id)
+                if(resultado.correto && resultado.resultado.length != 0){
+                    return next();
+        
+                } else return res.redirect('/login.html')
+            
+            } else return res.redirect('/login.html')
+    }
+
+    async update(req,res){
+        try {
+            const {usuario, contaHabilitada} = req.body;
+            const message1 = "Conta habilitada com sucesso!", message2 = "Conta desabilitada com sucesso!"
+            const resultado = await DataViewRepository.atualizaConta(usuario, contaHabilitada);
+                res.status(resultado.correto ? 202 : 500).json(resultado.correto ? 
+                {
+                    message: contaHabilitada ? message1 : message2,
+                    atualizado: true
+                } 
+                :
+                {
+                    message: 'Conta não encontrada',
+                    atualizado: false
+                }
+            )
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+
+    async excluir(req, res){
+        const {usuario} = req.body;
+        const resultado = await DataViewRepository.deleteUser(usuario)
+        res.status(resultado.correto ? 202 : 404).json({
+            message: resultado.correto ? "Deletado com sucesso" : resultado.message
+        })
+    }
+
+
+    
+
+}
+
+export default new DataViewController();
