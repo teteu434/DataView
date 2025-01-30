@@ -290,13 +290,21 @@ class DataViewController {
             
             const id = req.cookies.sessionId;
             if(id){
+                console.log("1")
                 const resultado = await DataViewRepository.usuarioLogado(id)
                 if(resultado.correto && resultado.resultado.length != 0){
+                    console.log("2")
                     return next();
-        
-                } else return res.redirect('/login.html')
+                    
+                } else{
+                    console.log("3")
+                    return res.redirect('/login.html')
+                }
             
-            } else return res.redirect('/login.html')
+            } else{
+                console.log("4")
+                return res.redirect('/login.html')
+            } 
     }
 
     async update(req,res){
