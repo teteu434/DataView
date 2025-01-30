@@ -304,6 +304,7 @@ class DataViewController {
     async autenticarRota(req, res, next){
         try {
             const id = req.cookies.sessionId;
+            console.log(id)
             if(id){
                 console.log("1")
                 const resultado = await DataViewRepository.usuarioLogado(id)
