@@ -37,6 +37,11 @@ body {
   text-align: center;
 }
 
+#customizar {
+  position: absolute;
+  right: 10px;
+}
+
 #inss {
   width: 5%;
   height: auto;
