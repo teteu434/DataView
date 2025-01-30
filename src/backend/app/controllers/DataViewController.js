@@ -40,31 +40,36 @@ class DataViewController {
     }
 
     async confereSenha(req, res){
-        const {email, senha} = req.body;
-        const xixi = await bcrypt.hash(senha, 10)
-        const resultado = await DataViewRepository.confereDadosLogin(email)
-        if(resultado.resultado.length == 0){
-            res.status(404).json({ 
-                correto: false,
-                message: "Usuario não encontrado."
-            })
-        } 
-        else{
-            console.log(resultado.resultado[0].adm)
-            if(await bcrypt.compare(senha, resultado.resultado[0].senha)) res.status(200).json({ 
-                correto: true,
-                usuario: resultado.resultado[0].usuario,
-                message: "senha valida",
-                adm: resultado.resultado[0].adm,
-                contaHabilitada: resultado.resultado[0].contahabilitada,
-                emailConfirmado: resultado.resultado[0].emailconfirmado
-            })
-            else res.status(400).json({ 
-                correto: false,
-                message: "Usuário e/ou senha inválidos.",
-                pass: senha,
-                crypto: xixi})
+        try {
+            const {email, senha} = req.body;
+            const xixi = await bcrypt.hash(senha, 10)
+            const resultado = await DataViewRepository.confereDadosLogin(email)
+            if(resultado.resultado.length == 0){
+                res.status(404).json({ 
+                    correto: false,
+                    message: "Usuario não encontrado."
+                })
+            } 
+            else{
+                console.log(resultado.resultado[0].adm)
+                if(await bcrypt.compare(senha, resultado.resultado[0].senha)) res.status(200).json({ 
+                    correto: true,
+                    usuario: resultado.resultado[0].usuario,
+                    message: "senha valida",
+                    adm: resultado.resultado[0].adm,
+                    contaHabilitada: resultado.resultado[0].contahabilitada,
+                    emailConfirmado: resultado.resultado[0].emailconfirmado
+                })
+                else res.status(400).json({ 
+                    correto: false,
+                    message: "Usuário e/ou senha inválidos.",
+                    pass: senha,
+                    crypto: xixi})
+            }
+        } catch (error) {
+            console.log(error)
         }
+
     }
 
     async insertUser(req, res){
@@ -230,64 +235,74 @@ class DataViewController {
     }
 
     async logout(req,res){
-        const id = req.cookies.sessionId;
-        if(id){
-            const resultado = await DataViewRepository.logoutUsuario(id)
-            if(resultado.correto){
-                res.clearCookie('sessionId')
-                res.status(200).json({ message: 'Logout realizado com sucesso', redirect: 'login.html', deslogado: true });
-            } else res.status(500).json({ message: 'Erro ao encerrar a sessão', deslogado: false});
-
-        } else res.json({message: "nenhuma id registrado", logado: false})    
+        try {
+            const id = req.cookies.sessionId;
+            if(id){
+                const resultado = await DataViewRepository.logoutUsuario(id)
+                if(resultado.correto){
+                    res.clearCookie('sessionId')
+                    res.status(200).json({ message: 'Logout realizado com sucesso', redirect: 'login.html', deslogado: true });
+                } else res.status(500).json({ message: 'Erro ao encerrar a sessão', deslogado: false});
+    
+            } else res.json({message: "nenhuma id registrado", logado: false})  
+        } catch (error) {
+            console.log(error)
+        }
+  
         
     }
 
     async reset(req,res){
-        const {token, senha} = req.body;
-        const resultado = await DataViewRepository.confereTokenESenha(token);
-        console.log(resultado)
-        if(resultado.correto){
-            if(resultado.resultado.length == 0){
-                res.status(404).json({ 
-                    reset: false,
-                    message: "Token inválido/expirado. Solicite novamente o reset da senha."
-                })
-            }
-            else{
-                if(await bcrypt.compare(senha, resultado.resultado[0].senha)) res.status(400).json({ 
-                    reset: false,
-                    message: "A senha não pode ser a mesma da anterior."
-                })
+        try {
+            const {token, senha} = req.body;
+            const resultado = await DataViewRepository.confereTokenESenha(token);
+            console.log(resultado)
+            if(resultado.correto){
+                if(resultado.resultado.length == 0){
+                    res.status(404).json({ 
+                        reset: false,
+                        message: "Token inválido/expirado. Solicite novamente o reset da senha."
+                    })
+                }
                 else{
-                    const pass = await bcrypt.hash(senha, 10)
-                    const result = await DataViewRepository.updatePass(pass, token)
-                    if(result.update != 0){
-                        res.status(result.correto ? 202 : 500).json(result.correto ? 
-                            {
-                                reset: true,
-                                message: "Senha atualizada com sucesso, redirecionando para a página de Login!",
-                                redirect: 'login.html'
-                            } 
-                            :
-                            {
-                                reset: false,
-                                message: result.message
-                            }
-                        )
-                    } else res.status(404).json({reset: false, message: "Não foi encontrado este usuário"})
+                    if(await bcrypt.compare(senha, resultado.resultado[0].senha)) res.status(400).json({ 
+                        reset: false,
+                        message: "A senha não pode ser a mesma da anterior."
+                    })
+                    else{
+                        const pass = await bcrypt.hash(senha, 10)
+                        const result = await DataViewRepository.updatePass(pass, token)
+                        if(result.update != 0){
+                            res.status(result.correto ? 202 : 500).json(result.correto ? 
+                                {
+                                    reset: true,
+                                    message: "Senha atualizada com sucesso, redirecionando para a página de Login!",
+                                    redirect: 'login.html'
+                                } 
+                                :
+                                {
+                                    reset: false,
+                                    message: result.message
+                                }
+                            )
+                        } else res.status(404).json({reset: false, message: "Não foi encontrado este usuário"})
+    
+    
+                    } 
+                }
+    
+                
+            } else res.status(500).json({ message: resultado.message,
+                reset: false
+            })
+        } catch (error) {
+            console.log(error)
+        }
 
-
-                } 
-            }
-
-            
-        } else res.status(500).json({ message: resultado.message,
-            reset: false
-        })
     }
 
     async autenticarRota(req, res, next){
-            
+        try {
             const id = req.cookies.sessionId;
             if(id){
                 console.log("1")
@@ -304,7 +319,11 @@ class DataViewController {
             } else{
                 console.log("4")
                 return res.redirect('/login.html')
-            } 
+            }   
+        } catch (error) {
+            console.log(error)
+        }    
+
     }
 
     async update(req,res){
@@ -330,11 +349,16 @@ class DataViewController {
     }
 
     async excluir(req, res){
-        const {usuario} = req.body;
-        const resultado = await DataViewRepository.deleteUser(usuario)
-        res.status(resultado.correto ? 202 : 404).json({
-            message: resultado.correto ? "Deletado com sucesso" : resultado.message
-        })
+        try {
+            const {usuario} = req.body;
+            const resultado = await DataViewRepository.deleteUser(usuario)
+            res.status(resultado.correto ? 202 : 404).json({
+                message: resultado.correto ? "Deletado com sucesso" : resultado.message
+            })
+        } catch (error) {
+            console.log(error)
+        }
+ 
     }
 
 
