@@ -214,7 +214,7 @@ class DataViewController {
                     const expiresat = dataTimerExpirar();
                     const result = await DataViewRepository.insereLogin(sessionId, usuario, email, expiresat)
                     if(result.correto){
-                        res.cookie('sessionId', sessionId, { httpOnly: true });
+                        res.cookie('sessionId', sessionId, { httpOnly: true, secure: true, sameSite: 'None'});
                         res.status(200).json({message: "Logado com sucesso", logado: true})
                     } 
                     else res.status(500).json({message: "Erro ao iniciar sessão", logado: false})
