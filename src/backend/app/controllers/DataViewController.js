@@ -223,7 +223,7 @@ class DataViewController {
                             httpOnly: true, 
                             secure: true, 
                             sameSite: 'None', 
-                            domain: 'https://dataviewinss.onrender.com'
+                            domain: 'dataviewinss.onrender.com'
                         });
                         res.status(200).json({message: "Logado com sucesso", logado: true})
                     } 

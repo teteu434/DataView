@@ -11,7 +11,7 @@ const {router} = rotas
 
 
 app.use(cors({
-    origin: ['http://localhost:4000', 'https://dataviewinss.onrender.com'],
+    origin: 'https://dataviewinss.onrender.com',
     credentials: true
 }));
 app.use(express.json());
