@@ -79,7 +79,7 @@ class DataViewController {
                 const mensagem = `
                     <h1>Confirme seu e-mail</h1>
                     <p>Clique no botão abaixo para confirmar seu e-mail:</p>
-                    <a href= "http://localhost:${process.env.API_PORT_SITE}/confirmar-email?token=${token}">
+                    <a href= "https://dataviewinss.onrender.com/confirmar-email?token=${token}">
                         <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                     </a>
                     `
@@ -117,7 +117,7 @@ class DataViewController {
             const mensagem = `
                 <h1>Confirme seu e-mail</h1>
                 <p>Clique no botão abaixo para confirmar seu e-mail:</p>
-                <a href= "http://localhost:${process.env.API_PORT_SITE}/confirmar-email?token=${token}">
+                <a href= "https://dataviewinss.onrender.com/confirmar-email?token=${token}">
                     <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                 </a>
                 `
@@ -164,7 +164,7 @@ class DataViewController {
                     const mensagem = `
                     <h1>Resetar Senha</h1>
                     <p>Clique no botão abaixo para ser redirecionado para resetar sua senha</p>
-                    <a href= "http://localhost:3000/resetPass.html?token=${token}">
+                    <a href= "https://dataviewinss.onrender.com/resetPass.html?token=${token}">
                         <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                     </a>
                 `
