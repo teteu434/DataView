@@ -1,5 +1,4 @@
 import {Router} from 'express';
-import express from 'express';
 import DataViewController from './app/controllers/DataViewController.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
@@ -36,8 +35,4 @@ router.put('/reset', DataViewController.reset)
 router.put('/atualiza', DataViewController.update)
 router.delete('/exclui', DataViewController.excluir)
 
-router.use(express.static(process.env.PATH_SITE))
-router.use(express.static(process.env.PATH_SITE2))
-router.use(express.static(process.env.PATH_SITE3))
-router.use(express.static(process.env.PATH_SITE4))
 export default {router}
