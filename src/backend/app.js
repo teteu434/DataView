@@ -18,8 +18,6 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(router);
-app.use(express.static('src', {
-    index: false
-}));
+app.use(express.static('src'));
 
 export default {app};

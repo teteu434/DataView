@@ -84,7 +84,7 @@ class DataViewController {
                 const mensagem = `
                     <h1>Confirme seu e-mail</h1>
                     <p>Clique no botão abaixo para confirmar seu e-mail:</p>
-                    <a href= "https://dataviewinss.onrender.com/confirmar-email?token=${token}">
+                    <a href= "http://localhost:3000/confirmar-email?token=${token}">
                         <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                     </a>
                     `
@@ -122,7 +122,7 @@ class DataViewController {
             const mensagem = `
                 <h1>Confirme seu e-mail</h1>
                 <p>Clique no botão abaixo para confirmar seu e-mail:</p>
-                <a href= "https://dataviewinss.onrender.com/confirmar-email?token=${token}">
+                <a href= "http://localhost:3000/confirmar-email?token=${token}">
                     <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                 </a>
                 `
@@ -169,7 +169,7 @@ class DataViewController {
                     const mensagem = `
                     <h1>Resetar Senha</h1>
                     <p>Clique no botão abaixo para ser redirecionado para resetar sua senha</p>
-                    <a href= "https://dataviewinss.onrender.com/resetPass.html?token=${token}">
+                    <a href= "http://localhost:3000/resetPass.html?token=${token}">
                         <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                     </a>
                 `
@@ -195,6 +195,7 @@ class DataViewController {
     }
 
     async confirmaEmail(req,res){
+        
         try {
             const {token} = req.query;
             const resultado = await DataViewRepository.confirmaEmail(token);
@@ -203,7 +204,6 @@ class DataViewController {
         } catch (error) {
             console.log(error)
         }
-
         
     }
 
@@ -222,8 +222,8 @@ class DataViewController {
                         res.cookie('sessionId', sessionId, { 
                             httpOnly: true, 
                             secure: true, 
-                            sameSite: 'None', 
-                            domain: 'dataviewinss.onrender.com'
+                            sameSite: 'None'
+                            
                         });
                         res.status(200).json({message: "Logado com sucesso", logado: true})
                     } 
