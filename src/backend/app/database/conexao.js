@@ -1,5 +1,5 @@
 import pkg from 'pg';
-const { Client } = pkg;
+const { Pool } = pkg;
 import dotenv from 'dotenv';
 dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
 
@@ -14,15 +14,17 @@ const config = {
     },
 }
 
-const banco = new Client(config)
+const banco = new Pool(config)
 
-banco.connect((err) => {
-    if (err) {
-      console.error('Erro ao conectar ao banco:', err);
-    } else {
-      console.log('Conectado ao banco com sucesso!');
-    }
-  });
+//testar conexão do banco
+
+try {
+    const client = await banco.connect();
+    console.log('Conectado ao banco com sucesso!');
+    client.release();
+} catch (err) {
+    console.error('Erro ao conectar ao banco:', err);
+}
 
 banco.on('error', (err) =>{
     console.error(err)
