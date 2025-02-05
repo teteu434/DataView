@@ -3,7 +3,7 @@ import DataViewController from './app/controllers/DataViewController.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+dotenv.config();
 
 const router = Router();
 const __filename = fileURLToPath(import.meta.url);

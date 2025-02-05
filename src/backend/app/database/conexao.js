@@ -1,7 +1,7 @@
 import pkg from 'pg';
 const { Pool } = pkg;
 import dotenv from 'dotenv';
-dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+dotenv.config();
 
 const config = {
     user: process.env.DB_USER,

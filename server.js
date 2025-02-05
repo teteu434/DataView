@@ -1,6 +1,6 @@
 import apps from './src/backend/app.js';
 import dotenv from 'dotenv'
-dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+dotenv.config();
 
 const {app} = apps;
 

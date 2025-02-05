@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 
-dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+dotenv.config();
 
 
 class DataViewController {

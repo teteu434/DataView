@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
-dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+dotenv.config();
 
 const app = express()
 const {router} = rotas

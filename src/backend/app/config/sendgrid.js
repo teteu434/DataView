@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config({ path: 'C:/Users/MATHEUSHENRIQUECOSTA/Documents/DataViewINSS/.env' });
+dotenv.config();
 import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.API_KEY)
