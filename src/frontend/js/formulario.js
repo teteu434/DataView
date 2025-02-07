@@ -33,7 +33,8 @@ import { fetchData2 } from './extrairData.js';
                         const resposta = await fetch('http://localhost:3000/insertUser', {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({usuario, email, senha, adm, contaHabilitada})
+                            body: JSON.stringify({usuario, email, senha, adm, contaHabilitada}),
+                            credentials: 'include'
                         });
                         
 

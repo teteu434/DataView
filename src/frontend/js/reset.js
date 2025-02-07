@@ -16,7 +16,8 @@ document.getElementById("enviar").addEventListener('click', async() =>{
                 const resposta = await fetch('http://localhost:3000/reset', {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
-                    body: user
+                    body: user,
+                    credentials: 'include'
                 });
 
                 const resultado = await resposta.json();

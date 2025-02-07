@@ -25,6 +25,7 @@ if(sessao.logado){
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(result),
+                credentials: 'include'
                 });
                 const resultado = await resposta.json();
                 
@@ -45,6 +46,7 @@ if(sessao.logado){
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: usuario,
+                                        credentials: 'include'
                                     });
 
                                     const result = await login.json()

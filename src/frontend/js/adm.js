@@ -19,7 +19,8 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                         const resposta = await fetch('http://localhost:3000/atualiza', {
                             method: 'PUT',
                             headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({ usuario, contaHabilitada: habilitado})
+                            body: JSON.stringify({ usuario, contaHabilitada: habilitado}),
+                            credentials: 'include'
                         });
                         if(resposta.ok){
                             const resultado = await resposta.json();
@@ -39,7 +40,8 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                         const resposta = await fetch('http://localhost:3000/atualiza', {
                             method: 'PUT',
                             headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({usuario, contaHabilitada: desabilitado})
+                            body: JSON.stringify({usuario, contaHabilitada: desabilitado}),
+                            credentials: 'include'
                         });
                         
                         
@@ -63,7 +65,8 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                         const resposta = await fetch('http://localhost:3000/exclui', {
                             method: 'DELETE',
                             headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({usuario})
+                            body: JSON.stringify({usuario}),
+                            credentials: 'include'
                         });
                         
                         

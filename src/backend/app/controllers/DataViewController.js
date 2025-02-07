@@ -223,7 +223,6 @@ class DataViewController {
                             httpOnly: true, 
                             secure: true, 
                             sameSite: 'None'
-                            
                         });
                         res.status(200).json({message: "Logado com sucesso", logado: true})
                     } 

@@ -13,7 +13,8 @@ document.getElementById("enviar").addEventListener('click', async() =>{
             const resposta = await fetch('http://localhost:3000/reconfirmaEmail', {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({destinatario})
+                body: JSON.stringify({destinatario}),
+                credentials: 'include'
             });
                             
                 const resultado = await resposta.json();
