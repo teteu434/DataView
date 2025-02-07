@@ -21,9 +21,8 @@ router.get('/adm.html', DataViewController.autenticarRota, (req, res) =>{
 router.get('/login.html', (req, res) =>{
     res.sendFile(path.join(__dirname, '../login.html'))
 })
-router.get('/tabela', DataViewController.gerarTabela)
+
 router.get('/sessao', DataViewController.sessao)
-router.get('/users', DataViewController.usuarios)
 router.get('/confirmar-email', DataViewController.confirmaEmail)
 router.post('/confereSenha', DataViewController.confereSenha)
 router.post('/insertUser', DataViewController.insertUser)

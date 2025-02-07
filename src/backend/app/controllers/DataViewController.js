@@ -11,15 +11,6 @@ dotenv.config();
 
 
 class DataViewController {
-    async gerarTabela(req, res){
-        const tabela = await DataViewRepository.getTabela();
-        res.json(tabela)
-    }
-
-    async usuarios(req, res){
-        const users = await DataViewRepository.getUsuarios();
-        res.json(users)
-    }
 
     async sessao(req, res){
         try{
@@ -51,7 +42,7 @@ class DataViewController {
                 })
             } 
             else{
-                console.log(resultado.resultado[0].adm)
+                
                 if(await bcrypt.compare(senha, resultado.resultado[0].senha)) res.status(200).json({ 
                     correto: true,
                     usuario: resultado.resultado[0].usuario,
@@ -261,7 +252,6 @@ class DataViewController {
         try {
             const {token, senha} = req.body;
             const resultado = await DataViewRepository.confereTokenESenha(token);
-            console.log(resultado)
             if(resultado.correto){
                 if(resultado.resultado.length == 0){
                     res.status(404).json({ 
@@ -309,21 +299,15 @@ class DataViewController {
     async autenticarRota(req, res, next){
         try {
             const id = req.cookies.sessionId;
-            console.log(id)
             if(id){
-                console.log("1")
                 const resultado = await DataViewRepository.usuarioLogado(id)
                 if(resultado.correto && resultado.resultado.length != 0){
-                    console.log("2")
                     return next();
                     
                 } else{
-                    console.log("3")
                     return res.redirect('/login.html')
                 }
-            
             } else{
-                console.log("4")
                 return res.redirect('/login.html')
             }   
         } catch (error) {

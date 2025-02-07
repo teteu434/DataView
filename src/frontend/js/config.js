@@ -2,9 +2,6 @@
 export async function usuario() {
     const { fetchData3 } = await import('./extrairData.js');
     const sessao = await fetchData3();
-    console.log(sessao)
-    const teste = sessao.usuario
-    console.log(teste)
     document.getElementById('user').innerHTML = `Olá, ${sessao.usuario}`
 }
 
@@ -34,7 +31,6 @@ export async function preencherTabela() {
         const gerenciaSelecionada = event.target.value
         fetchData4().then((dado) => {
             const dados = JSON.parse(JSON.stringify(dado))
-            console.log(gerenciaSelecionada)
             
             const vetor = dados[gerenciaSelecionada]
             const nomes = Object.keys(dados[gerenciaSelecionada][0])

@@ -13,7 +13,7 @@ export async function enviarEmail(destinatario, assunto, mensagem) {
     }
 
     sgMail.send(message).then(() =>{
-        console.log('deu bom')
+        console.log('Email enviado!')
     }).catch((error) => {
         console.log(error)
     })

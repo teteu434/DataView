@@ -68,8 +68,6 @@ if(sessao.logado){
                         alert(resultado.message);
                 } else {
                     
-                        
-                    console.log(resultado)
                     alert(resultado.message)
                     
                 }
