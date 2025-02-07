@@ -21,7 +21,7 @@ if(sessao.logado){
             alert("Preencha todos os campos!");
             
         } else {
-            const resposta = await fetch('http://localhost:3000/confereSenha', {
+            const resposta = await fetch('https://dataviewinss.onrender.com/confereSenha', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(result),
@@ -42,7 +42,7 @@ if(sessao.logado){
                                         "email": email
                                     })
 
-                                    const login = await fetch('http://localhost:3000/login', {
+                                    const login = await fetch('https://dataviewinss.onrender.com/login', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: usuario,

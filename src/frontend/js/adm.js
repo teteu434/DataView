@@ -16,7 +16,7 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                     
                 if(habilitar){
                     if(confirm(`Confirma a habilitação da conta ${usuario}?`)){
-                        const resposta = await fetch('http://localhost:3000/atualiza', {
+                        const resposta = await fetch('https://dataviewinss.onrender.com/atualiza', {
                             method: 'PUT',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({ usuario, contaHabilitada: habilitado}),
@@ -37,7 +37,7 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                 } else if(desabilitar){
                     if(confirm(`Confirma a desabilitação da conta ${usuario}?`)){
                     
-                        const resposta = await fetch('http://localhost:3000/atualiza', {
+                        const resposta = await fetch('https://dataviewinss.onrender.com/atualiza', {
                             method: 'PUT',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({usuario, contaHabilitada: desabilitado}),
@@ -62,7 +62,7 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                 } else if(excluir){
                     if(confirm(`Confirma a exclusão da conta ${usuario}?`)){
 
-                        const resposta = await fetch('http://localhost:3000/exclui', {
+                        const resposta = await fetch('https://dataviewinss.onrender.com/exclui', {
                             method: 'DELETE',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({usuario}),

@@ -4,7 +4,7 @@ async function logOut(){
     
         if(confirm("deseja realmente fazer logout?")){
           try {
-              const response = await fetch('http://localhost:3000/logout', {
+              const response = await fetch('https://dataviewinss.onrender.com/logout', {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({deslogar}),

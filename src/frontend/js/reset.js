@@ -13,7 +13,7 @@ document.getElementById("enviar").addEventListener('click', async() =>{
             })
             
             if(confirm('Deseja realmente mudar sua senha?')){
-                const resposta = await fetch('http://localhost:3000/reset', {
+                const resposta = await fetch('https://dataviewinss.onrender.com/reset', {
                     method: 'PUT',
                     headers: {'Content-Type': 'application/json'},
                     body: user,

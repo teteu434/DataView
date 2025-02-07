@@ -10,7 +10,7 @@ document.getElementById("enviar").addEventListener('click', async() =>{
                 
         try{
                 
-            const resposta = await fetch('http://localhost:3000/recovery', {
+            const resposta = await fetch('https://dataviewinss.onrender.com/recovery', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({destinatario}),
