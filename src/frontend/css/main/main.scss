@@ -1238,7 +1238,7 @@ form select.error:focus {
 /* authentication */
 
 .login {
-  background-image: url(../../../public/images/inss-login.png);
+  background-image: url(../../../../public/images/inss-login.png);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1246,27 +1246,27 @@ form select.error:focus {
 
 .adm{
   @extend .login;
-  background-image: url(../../../public/images/raulSoares.jpg)
+  background-image: url(../../../../public/images/raulSoares.jpg)
 }
 
 .confirmaEmail {
   @extend .login;
-  background-image: url(../../../public/images/inss-confirma-email.jpg)
+  background-image: url(../../../../public/images/inss-confirma-email.jpg)
 }
 
 .cadastro {
   @extend .login;
-  background-image: url(../../../public/images/inss-cadastro.jpg);
+  background-image: url(../../../../public/images/inss-cadastro.jpg);
 }
 
 .forgotPassword {
   @extend .login;
-  background-image: url(../../../public/images/inss-esqueci-senha.jpg);
+  background-image: url(../../../../public/images/inss-esqueci-senha.jpg);
 }
 
 .resetPassword {
   @extend .login;
-  background-image: url(../../../public/images/inss-reset-senha.png);
+  background-image: url(../../../../public/images/inss-reset-senha.png);
 }
 
 
