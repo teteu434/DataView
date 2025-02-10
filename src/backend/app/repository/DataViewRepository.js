@@ -51,7 +51,7 @@ class DataViewRepository {
     logoutTempo(){
         return new Promise(async (resolve, reject) => {
             const resultado = banco.query(`delete from sessions where expiresat > NOW()`);
-            return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            return resolve(resultado)
         })
     }
 
