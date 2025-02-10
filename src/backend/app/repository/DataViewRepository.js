@@ -72,12 +72,12 @@ class DataViewRepository {
         return consultaSimples(`select * from sessions where usuario = $1 and expiresat > NOW()`, email, `Erro ao buscar usuario`)
     }
 
-    insereLogin(sessionId, usuario, email, expiresat){
-        return consultaSimples(`insert into sessions (id, usuario, email, expiresat) values ($1, $2, $3, $4)`, [sessionId, usuario, email, expiresat], `Erro ao logar`)
+    insereLogin(sessionId, usuario, email, expiresat, adm){
+        return consultaSimples(`insert into sessions (id, usuario, email, expiresat, adm) values ($1, $2, $3, $4, $5)`, [sessionId, usuario, email, expiresat, adm], `Erro ao logar`)
     }
 
     usuarioLogado(id){
-        return consultaSimples(`select usuario from sessions where id = $1 and expiresat > NOW()`, id, `Erro ao buscar usuário por ID`)
+        return consultaSimples(`select usuario, adm from sessions where id = $1 and expiresat > NOW()`, id, `Erro ao buscar usuário por ID`)
     }
 
     logoutUsuario(id){

@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import DataViewController from './app/controllers/DataViewController.js';
+import authenticate from './app/config/authenticate.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
@@ -9,13 +10,13 @@ const router = Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-router.get('/', DataViewController.autenticarRota, (req, res) =>{
+router.get('/', authenticate.autenticarRotaFront, (req, res) =>{
     res.sendFile(path.join(__dirname, '../index.html'))
 })
-router.get('/index.html', DataViewController.autenticarRota, (req, res) =>{
+router.get('/index.html', authenticate.autenticarRotaFront, (req, res) =>{
     res.sendFile(path.join(__dirname, '../index.html'))
 })
-router.get('/adm.html', DataViewController.autenticarRota, (req, res) =>{
+router.get('/adm.html', authenticate.autenticarRotaFront, (req, res) =>{
     res.sendFile(path.join(__dirname, '../adm.html'))
 })
 router.get('/login.html', (req, res) =>{
@@ -23,8 +24,8 @@ router.get('/login.html', (req, res) =>{
 })
 
 router.get('/sessao', DataViewController.sessao)
-router.get('/tabela', DataViewController.tabela)
-router.get('/users', DataViewController.users)
+router.get('/tabela', authenticate.autenticaRotaTabela, DataViewController.tabela)
+router.get('/users', authenticate.autenticaRotaUsuario, DataViewController.users)
 router.get('/confirmar-email', DataViewController.confirmaEmail)
 router.post('/confereSenha', DataViewController.confereSenha)
 router.post('/insertUser', DataViewController.insertUser)

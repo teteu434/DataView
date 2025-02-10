@@ -39,7 +39,8 @@ if(sessao.logado){
                                 else{
                                     const usuario = JSON.stringify( {
                                         "usuario": resultado.usuario,
-                                        "email": email
+                                        "email": email,
+                                        "adm": resultado.adm
                                     })
 
                                     const login = await fetch('https://dataviewinss.onrender.com/login', {

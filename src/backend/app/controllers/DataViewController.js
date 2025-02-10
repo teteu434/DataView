@@ -26,7 +26,8 @@ class DataViewController {
             if(id){
                 const resultado = await DataViewRepository.usuarioLogado(id)
                 if(resultado.correto){
-                    if(resultado.resultado.length != 0) res.json({usuario: resultado.resultado[0].usuario, logado: true})
+                    if(resultado.resultado.length != 0) res.json({usuario: resultado.resultado[0].usuario, logado: true, 
+                        adm: resultado.resultado[0].adm})
                     else res.json({message: 'Sem sessão para esse ID', logado: false})
                 } else res.json({message: "Erro ao buscar sessão", logado: false})
     
@@ -208,7 +209,7 @@ class DataViewController {
 
     async login(req,res){
         const sessionId = Math.random().toString(36).substring(2);
-        const{email, usuario} = req.body;
+        const{email, usuario, adm} = req.body;
 
         try {
             const resultado = await DataViewRepository.confereLogin(email)
@@ -216,7 +217,7 @@ class DataViewController {
                 if(resultado.resultado.length == 0){
     
                     const expiresat = dataTimerExpirar();
-                    const result = await DataViewRepository.insereLogin(sessionId, usuario, email, expiresat)
+                    const result = await DataViewRepository.insereLogin(sessionId, usuario, email, expiresat, adm)
                     if(result.correto){
                         res.cookie('sessionId', sessionId, { 
                             httpOnly: true, 
@@ -304,27 +305,6 @@ class DataViewController {
 
     }
 
-    async autenticarRota(req, res, next){
-        await DataViewRepository.logoutTempo();
-        try {
-            const id = req.cookies.sessionId;
-            if(id){
-                const resultado = await DataViewRepository.usuarioLogado(id)
-                if(resultado.correto && resultado.resultado.length != 0){
-                    return next();
-                    
-                } else{
-                    return res.redirect('/login.html')
-                }
-            } else{
-                return res.redirect('/login.html')
-            }   
-        } catch (error) {
-            console.log(error)
-        }    
-
-    }
-
     async update(req,res){
         try {
             const {usuario, contaHabilitada} = req.body;
@@ -360,7 +340,6 @@ class DataViewController {
  
     }
 
-    
 
 }
 
