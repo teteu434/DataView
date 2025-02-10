@@ -5,7 +5,7 @@ class authenticate {
     async autenticarRotaFront(req, res, next){
         
         try {
-            await DataViewRepository.logoutTempo();
+            
             const id = req.cookies.sessionId;
             if(id){
                 const resultado = await DataViewRepository.usuarioLogado(id)
