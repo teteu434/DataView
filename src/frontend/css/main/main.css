@@ -1098,30 +1098,30 @@ form select.error:focus {
 
 /* authentication */
 .login, .adm, .resetPassword, .forgotPassword, .cadastro, .confirmaEmail {
-  background-image: url(../../../../public/images/inss-login.png);
+  background-image: url(../../../public/images/inss-login.png);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .confirmaEmail {
-  background-image: url(../../../../public/images/inss-confirma-email.jpg);
+  background-image: url(../../../public/images/inss-confirma-email.jpg);
 }
 
 .adm{
-  background-image: url(../../../../public/images/raulSoares.jpg);
+  background-image: url(../../../public/images/raulSoares.jpg);
 }
 
 .cadastro {
-  background-image: url(../../../../public/images/inss-cadastro.jpg);
+  background-image: url(../../../public/images/inss-cadastro.jpg);
 }
 
 .forgotPassword {
-  background-image: url(../../../../public/images/inss-esqueci-senha.jpg);
+  background-image: url(../../../public/images/inss-esqueci-senha.jpg);
 }
 
 .resetPassword {
-  background-image: url(../../../../public/images/inss-reset-senha.png);
+  background-image: url(../../../public/images/inss-reset-senha.png);
 }
 
 .blur {
