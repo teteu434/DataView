@@ -6,7 +6,7 @@ export async function usuario() {
 }
 
 export async function carregando() {
-    document.getElementById("dropdown").addEventListener("change", function () {
+    document.getElementById("gerenciaSelect").addEventListener("change", function () {
         const spinner = document.getElementById("spinner");
         const tableContainer = document.getElementById("pactuacao");
     
