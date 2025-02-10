@@ -147,19 +147,23 @@
 				<div class="card">
         
 					<div class="card-body">
+            <button id="spinner" class="btn btn-success d-none" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="visually-hidden">Loading...</span></button>
 						<div class="table-responsive">
 							<table id="pactuacao" class="table table-striped table-bordered">
-                <script type="module">
-                import {preencherTabela} from "./frontend/js/config.js"
-                document.addEventListener("DOMContentLoaded", () => {
-                  preencherTabela();
-                });
-              </script>
 							</table>
 						</div>
 					</div>
 				</div>
-
+        
+        <script type="module">
+          import { carregando, preencherTabela } from "./frontend/js/config.js";
+      
+          document.addEventListener("DOMContentLoaded", async () => {
+              carregando(); 
+              await preencherTabela(); 
+          });
+      </script>
 
     </div>
   </main>

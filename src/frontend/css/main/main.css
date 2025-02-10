@@ -1124,6 +1124,11 @@ form select.error:focus {
   background-image: url(../../../../public/images/inss-reset-senha.png);
 }
 
+.blur {
+  filter: blur(5px);  
+  pointer-events: none; 
+}
+
 /* switcher */
 .form-check-img {
   max-width: 100%;

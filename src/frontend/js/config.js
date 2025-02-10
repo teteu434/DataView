@@ -5,6 +5,21 @@ export async function usuario() {
     document.getElementById('user').innerHTML = `Olá, ${sessao.usuario}`
 }
 
+export async function carregando() {
+    document.getElementById("dropdown").addEventListener("change", function () {
+        const spinner = document.getElementById("spinner");
+        const tableContainer = document.getElementById("pactuacao");
+    
+        spinner.classList.remove("d-none");
+        tableContainer.classList.add("blur"); 
+
+        setTimeout(() => {
+            spinner.classList.add("d-none"); 
+            tableContainer.classList.remove("blur"); 
+        }, 2000); 
+    });
+}
+
 export async function contas(){
     const agenciaDropdown = document.getElementById("totalUsuario");
     const { fetchData2 } = await import('./extrairData.js');
