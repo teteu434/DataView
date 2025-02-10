@@ -16,8 +16,8 @@ function consultaSimples(sql, valor, mensagem){
 
 class DataViewRepository {
 
-    dadosTabela(){
-        return new Promise(async (resolve, reject) => {
+    async dadosTabela() {
+        try {
             const regioes = [
                 'Vitória', 'Belo Horizonte', 'Barbacena', 'Contagem',
                 'Divinópolis', 'Governador Valadares', 'Juíz de Fora',
@@ -25,25 +25,27 @@ class DataViewRepository {
                 'Uberaba', 'Uberlândia', 'Varginha', 'Diamantina', 
                 'Teófilo Otoni'
             ];
-    
+
             const resultados = {};
-    
+
             for (const regiao of regioes) {
-                const result = banco.query(
+                const result = await banco.query(
                     `SELECT * FROM pactuacao WHERE Gerencia = $1`, [regiao]
                 );
                 resultados[regiao] = result.rows;
             }
-            return resolve(JSON.parse(JSON.stringify(resultados.rows)));
-        })
 
+            return resultados;
 
+        } catch (error) {
+            throw new Error('Erro ao buscar tabela: ' + error.message);
+        }
     }
 
-    usuarios(){
+    async dadosUsuarios(){
         return new Promise(async (resolve, reject) => {
-            const resultados = banco.query(`select * from usuarios`);
-            return resolve(JSON.parse(JSON.stringify(resultados.rows)));
+            const resultado = await banco.query(`select * from usuarios`);
+            return resolve(JSON.parse(JSON.stringify(resultado.rows)))
         })
         
     }

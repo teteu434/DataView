@@ -16,7 +16,7 @@ class DataViewController {
     }
 
     async users(req,res){
-        const resultado = await DataViewRepository.usuarios();
+        const resultado = await DataViewRepository.dadosUsuarios();
         res.json(resultado);
     }
 
