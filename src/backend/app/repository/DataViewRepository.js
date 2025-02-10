@@ -16,6 +16,38 @@ function consultaSimples(sql, valor, mensagem){
 
 class DataViewRepository {
 
+    dadosTabela(){
+        return new Promise(async (resolve, reject) => {
+            const regioes = [
+                'Vitória', 'Belo Horizonte', 'Barbacena', 'Contagem',
+                'Divinópolis', 'Governador Valadares', 'Juíz de Fora',
+                'Montes Claros', 'Ouro Preto', 'Poços de Caldas', 
+                'Uberaba', 'Uberlândia', 'Varginha', 'Diamantina', 
+                'Teófilo Otoni'
+            ];
+    
+            const resultados = {};
+    
+            for (const regiao of regioes) {
+                const result = banco.query(
+                    `SELECT * FROM pactuacao WHERE Gerencia = $1`, [regiao]
+                );
+                resultados[regiao] = result.rows;
+            }
+            return resolve(JSON.parse(JSON.stringify(resultados.rows)));
+        })
+
+
+    }
+
+    usuarios(){
+        return new Promise(async (resolve, reject) => {
+            const resultados = banco.query(`select * from usuarios`);
+            return resolve(JSON.parse(JSON.stringify(resultados.rows)));
+        })
+        
+    }
+
     logoutTempo(){
         return new Promise(async (resolve, reject) => {
             const [resultado] = await banco.query(`delete from sessions where expiresat > NOW()`);

@@ -2,8 +2,6 @@ import DataViewRepository from '../repository/DataViewRepository.js'
 import { enviarEmail } from '../config/sendgrid.js'
 import { dataTimerExpirar } from '../config/date.js';
 import dotenv from 'dotenv';
-import path from 'path'
-import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 
@@ -11,6 +9,16 @@ dotenv.config();
 
 
 class DataViewController {
+
+    async tabela(req, res){
+        const resultado = await DataViewRepository.dadosTabela();
+        res.json(resultado);
+    }
+
+    async users(req,res){
+        const resultado = await DataViewRepository.usuarios();
+        res.json(resultado);
+    }
 
     async sessao(req, res){
         try{
@@ -297,6 +305,7 @@ class DataViewController {
     }
 
     async autenticarRota(req, res, next){
+        await DataViewRepository.logoutTempo();
         try {
             const id = req.cookies.sessionId;
             if(id){
@@ -350,7 +359,6 @@ class DataViewController {
         }
  
     }
-
 
     
 

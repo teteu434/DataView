@@ -1,6 +1,6 @@
 export async function fetchData2() {
     try {
-        const response = await fetch('http://localhost:3000/users');
+        const response = await fetch('https://dataviewinss.onrender.com/users');
         const dados = await response.json();
         return dados;
         
@@ -24,7 +24,7 @@ export async function fetchData3() {
 
 export async function fetchData4() {
     try {
-        const response = await fetch('http://localhost:3000/tabela');
+        const response = await fetch('https://dataviewinss.onrender.com/tabela');
         const dados = await response.json();
         return dados;
         

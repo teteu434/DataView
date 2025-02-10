@@ -23,6 +23,8 @@ router.get('/login.html', (req, res) =>{
 })
 
 router.get('/sessao', DataViewController.sessao)
+router.get('/tabela', DataViewController.tabela)
+router.get('/users', DataViewController.users)
 router.get('/confirmar-email', DataViewController.confirmaEmail)
 router.post('/confereSenha', DataViewController.confereSenha)
 router.post('/insertUser', DataViewController.insertUser)
