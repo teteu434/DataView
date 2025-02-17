@@ -1,6 +1,7 @@
 
 
 import { fetchData3 } from './extrairData.js';
+import { reqLocal } from './search.js';
 
 const sessao = await fetchData3();
 
@@ -21,7 +22,7 @@ if(sessao.logado){
             alert("Preencha todos os campos!");
             
         } else {
-            const resposta = await fetch('https://dataviewinss.onrender.com/confereSenha', {
+            const resposta = await fetch(`${reqLocal}/confereSenha`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(result),
@@ -43,7 +44,7 @@ if(sessao.logado){
                                         "adm": resultado.adm
                                     })
 
-                                    const login = await fetch('https://dataviewinss.onrender.com/login', {
+                                    const login = await fetch(`${reqLocal}/login`, {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: usuario,

@@ -1,4 +1,4 @@
-
+import { reqLocal } from "./search.js";
 
 document.getElementById("atualiza").addEventListener('click', async(event) =>{
         const usuario = document.getElementById("nomeUsuario").value;
@@ -16,7 +16,7 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                     
                 if(habilitar){
                     if(confirm(`Confirma a habilitação da conta ${usuario}?`)){
-                        const resposta = await fetch('https://dataviewinss.onrender.com/atualiza', {
+                        const resposta = await fetch(`${reqLocal}/atualiza`,{
                             method: 'PUT',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({ usuario, contaHabilitada: habilitado}),
@@ -37,7 +37,7 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                 } else if(desabilitar){
                     if(confirm(`Confirma a desabilitação da conta ${usuario}?`)){
                     
-                        const resposta = await fetch('https://dataviewinss.onrender.com/atualiza', {
+                        const resposta = await fetch(`${reqLocal}/atualiza`, {
                             method: 'PUT',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({usuario, contaHabilitada: desabilitado}),
@@ -62,7 +62,7 @@ document.getElementById("atualiza").addEventListener('click', async(event) =>{
                 } else if(excluir){
                     if(confirm(`Confirma a exclusão da conta ${usuario}?`)){
 
-                        const resposta = await fetch('https://dataviewinss.onrender.com/exclui', {
+                        const resposta = await fetch(`${reqLocal}/exclui`, {
                             method: 'DELETE',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({usuario}),

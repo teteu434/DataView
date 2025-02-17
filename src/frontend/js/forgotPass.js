@@ -1,4 +1,4 @@
-
+import { reqLocal } from "./search.js";
 
 document.getElementById("enviar").addEventListener('click', async() =>{
 
@@ -10,7 +10,7 @@ document.getElementById("enviar").addEventListener('click', async() =>{
                 
         try{
                 
-            const resposta = await fetch('https://dataviewinss.onrender.com/recovery', {
+            const resposta = await fetch(`${reqLocal}/recovery`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({destinatario}),

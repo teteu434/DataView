@@ -36,3 +36,5 @@ export function pesquisando(query) {
         return null;
      
 }
+
+export const reqLocal = 'https://dataviewinss.onrender.com';

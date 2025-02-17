@@ -1,10 +1,10 @@
-
+import { reqLocal } from "./search.js";
 async function logOut(){
     const deslogar = 'deslogado';
     
         if(confirm("deseja realmente fazer logout?")){
           try {
-              const response = await fetch('https://dataviewinss.onrender.com/logout', {
+              const response = await fetch(`${reqLocal}/logout`, {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({deslogar}),

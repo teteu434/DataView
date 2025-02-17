@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
+import { reqLocal } from '../frontend/js/search.js';
 dotenv.config();
 
 const app = express()
@@ -11,7 +12,7 @@ const {router} = rotas
 
 
 app.use(cors({
-    origin: 'https://dataviewinss.onrender.com',
+    origin: reqLocal,
     credentials: true
 }));
 app.use(express.json());

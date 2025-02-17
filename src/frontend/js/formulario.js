@@ -30,7 +30,7 @@ import { fetchData2 } from './extrairData.js';
                         console.log('teste');
                         
                         
-                        const resposta = await fetch('https://dataviewinss.onrender.com/insertUser', {
+                        const resposta = await fetch(`${reqLocal}/insertUser`, {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({usuario, email, senha, adm, contaHabilitada}),

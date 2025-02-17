@@ -1,6 +1,7 @@
 import DataViewRepository from '../repository/DataViewRepository.js'
 import { enviarEmail } from '../config/sendgrid.js'
 import { dataTimerExpirar } from '../config/date.js';
+import { reqLocal } from '../../../frontend/js/search.js';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
@@ -84,7 +85,7 @@ class DataViewController {
                 const mensagem = `
                     <h1>Confirme seu e-mail</h1>
                     <p>Clique no botão abaixo para confirmar seu e-mail:</p>
-                    <a href= "https://dataviewinss.onrender.com/confirmar-email?token=${token}">
+                    <a href= "${reqLocal}/confirmar-email?token=${token}">
                         <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                     </a>
                     `
@@ -122,7 +123,7 @@ class DataViewController {
             const mensagem = `
                 <h1>Confirme seu e-mail</h1>
                 <p>Clique no botão abaixo para confirmar seu e-mail:</p>
-                <a href= "https://dataviewinss.onrender.com/confirmar-email?token=${token}">
+                <a href= "${reqLocal}/confirmar-email?token=${token}">
                     <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                 </a>
                 `
@@ -169,7 +170,7 @@ class DataViewController {
                     const mensagem = `
                     <h1>Resetar Senha</h1>
                     <p>Clique no botão abaixo para ser redirecionado para resetar sua senha</p>
-                    <a href= "https://dataviewinss.onrender.com/resetPass.html?token=${token}">
+                    <a href= "${reqLocal}/resetPass.html?token=${token}">
                         <button  type="button" class="btn btn-success px-5">Clique aqui</button>
                     </a>
                 `
@@ -223,7 +224,7 @@ class DataViewController {
                             httpOnly: true, 
                             secure: true, 
                             sameSite: 'None',
-                            Domain: 'dataviewinss.onrender.com'
+                            Domain: reqLocal
                         });
                         res.status(200).json({message: "Logado com sucesso", logado: true})
                     } 
