@@ -1,5 +1,17 @@
 import { reqLocal } from "./search.js";
 
+export async function fetchData() {
+    try {
+        const response = await fetch(`${reqLocal}/gexGeralTotal`);
+        const dados = await response.json();
+        return dados;
+        
+    } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        return [];
+    }
+}
+
 export async function fetchData2() {
     try {
         const response = await fetch(`${reqLocal}/users`);
@@ -37,3 +49,50 @@ export async function fetchData4() {
 }
 
 
+export async function fetchData7() {
+    try {
+        const response = await fetch(`${reqLocal}/dadosAps`);
+        const dados = await response.json();
+        return dados;
+        
+    } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        return [];
+    }
+}
+
+export async function fetchData8() {
+    try {
+        const response = await fetch(`${reqLocal}/dadosCentrais`);
+        const dados = await response.json();
+        return dados;
+        
+    } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        return [];
+    }
+}
+
+export async function fetchData9() {
+    try {
+        const response = await fetch(`${reqLocal}/sr2`);
+        const dados = await response.json();
+        return dados;
+        
+    } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        return [];
+    }
+}
+
+export async function fetchData10() {
+    try {
+        const response = await fetch(`${reqLocal}/gexGeral`);
+        const dados = await response.json();
+        return dados;
+        
+    } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        return [];
+    }
+}

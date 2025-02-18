@@ -27,7 +27,7 @@ $(function () {
 
 
 
-  /* menu */
+  /* menu */ 
 
   $(function () {
     $('#sidenav').metisMenu();
@@ -64,16 +64,7 @@ $(function () {
 
     $("#DarkTheme").on("click", function () {
       $("html").attr("data-bs-theme", "dark")
-    }),
-
-    $("#SemiDarkTheme").on("click", function () {
-      $("html").attr("data-bs-theme", "semi-dark")
-    }),
-
-    $("#BoderedTheme").on("click", function () {
-      $("html").attr("data-bs-theme", "bodered-theme")
     })
-
 
 
   /* search control */

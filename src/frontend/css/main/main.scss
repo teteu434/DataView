@@ -1,31 +1,7 @@
 
-/*
-Template Name: Matoxi Admin
-Author: codervent
-Email: codervent@gmail.com
-File: main.scss
-
-Table of Index 
-
-  --Genral
-  --aligns
-  --dropdown animation
-  --header
-  --mini sidebar
-  --main content
-  --page footer
-  --Metis Menu
-  --order offcanvas
-  --utilities
-  --alerts
-  --authentication
-  --switcher
-
-*/
 
 
-
-/* Genral*/
+/* General*/
 
 body {
   position: relative;
@@ -471,7 +447,9 @@ $dropdownAnimation: .6s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 animd
     border-right: 1px solid var(--bs-border-color);
 
     .logo-img {
-      width: 10%
+      width: 5%;
+      height: auto;
+      margin-right: 0;
     }
 
     .logo-name {

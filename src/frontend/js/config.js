@@ -38,7 +38,148 @@ export async function contas(){
     document.getElementById("nomeUsuario").value = `${username}`;
 }
 
-export async function preencherTabela() {
+export async function agencias(gerenciaSelecionada){
+    const { fetchData7 } = await import('./extrairData.js');
+    const dados = await fetchData7();
+        var inner = `<option selected="" disabled>Selecione uma agência</option>`;
+        const agencias = dados.filter(item => item.gex == gerenciaSelecionada);
+        agencias.forEach(agencia => {
+            inner += `<option value = "${agencia.aps}"> ${agencia.aps} </option>`;
+        })
+        document.getElementById("srGex").innerHTML = inner; 
+    
+}
+
+export async function valores(gerenciaSelecionada){
+
+    const ids = ['colaboradores', 'estagiarios', 'servidores', 'integral', 'parcial', 'presencial']
+    const { fetchData10 } = await import('./extrairData.js');
+    const { fetchData } = await import('./extrairData.js');
+    const dados2 = await fetchData();
+    const dados1 = await fetchData10();
+    var resultado = null
+    if(gerenciaSelecionada == null){
+
+        resultado = dados2.map(item =>
+            [
+                item.colaboradores, item.estagiarios, item.servidores, item.pgdintegral, item.pgdparcial, item.presencial
+            ]
+        )[0];
+        ids.forEach((id, i) =>{
+            document.getElementById(id).innerText = resultado[i]
+        })
+        
+    } else{
+        resultado = dados1.filter(item => item.gex == gerenciaSelecionada).map(item =>
+            [
+                item.colaboradores, item.estagiarios, item.servidores, item.pgdintegral, item.pgdparcial, item.presencial
+            ]
+        )[0];
+        ids.forEach((id, i) =>{
+            document.getElementById(id).innerText = resultado[i]
+        })
+        
+    }
+    
+    
+
+}
+
+export async function preencherTabelaDadosCentrais(gerenciaSelecionada){
+    return new Promise (async(resolve) =>{
+    const { fetchData8 } = await import('./extrairData.js');
+    const dados = await fetchData8()
+    var inner = '';
+    if(gerenciaSelecionada == null){
+        inner += `<thead>
+        <tr>
+            <th>Matrícula</th>
+            <th>Servidor</th>
+            <th>Situação</th>
+            <th>SR/GEX</th>
+            <th>Unidade</th>
+            <th>OL</th>
+            <th>Função</th>
+            <th>Formação</th>
+            <th>Regime</th>
+            <th>Ingresso</th>
+            <th>Área</th>
+            <th>CEAB</th>
+            <th>Tipo CEAB</th>
+            <th>Atendimento APS</th>
+        </tr>
+        </thead>
+
+        <tbody> `;
+
+        dados.forEach( dado =>{
+            
+            inner += `<tr>`
+            Object.values(dado).forEach( valor => {
+            
+            if(valor == null) inner += `<td>-</td>`
+            else if(valor == false) inner += `<td>NÃO</td>`
+            else if(valor == true) inner += `<td>SIM</td>`
+            else inner += `<td>${valor}</td>`
+            })
+        inner += `</tr>`
+        })
+        inner += `</tbody>`
+    }else{
+        inner += `<thead>
+        <tr>
+            <th>Matrícula</th>
+            <th>Servidor</th>
+            <th>Situação</th>
+            <th>Unidade</th>
+            <th>OL</th>
+            <th>Função</th>
+            <th>Formação</th>
+            <th>Regime</th>
+            <th>Ingresso</th>
+            <th>Área</th>
+            <th>CEAB</th>
+            <th>Tipo CEAB</th>
+            <th>Atendimento APS</th>
+        </tr>
+        </thead>
+
+        <tbody> `;
+        const resultado = dados.filter(item => item.srgex == gerenciaSelecionada).map(item =>             
+        [
+            item.matricula,
+            item.servidor,
+            item.situacao,
+            item.unidade,
+            item.ol,
+            item.funcao,
+            item.formacao,
+            item.regime,
+            item.area,
+            item.ceab,
+            item.tipoceab,
+            item.atendimentoaps,
+        ]);
+        console.log(resultado)
+        resultado.forEach( dado =>{
+            inner += `<tr>`
+            dado.forEach( valor => {
+            if(valor == null) inner += `<td>-</td>`
+            else inner += `<td>${valor}</td>`
+            })
+        inner += `</tr>`
+        })
+        inner += `</tbody>`
+    }
+
+    document.getElementById('example').innerHTML = inner;
+    resolve()
+    })
+}
+  
+
+
+export async function preencherTabelaPactuacao() {
     const table = document.querySelector("#pactuacao");
     const { fetchData4 } = await import('./extrairData.js');
     document.getElementById('gerenciaSelect').addEventListener('change', (event)=> {

@@ -16,6 +16,52 @@ class DataViewController {
         res.json(resultado);
     }
 
+    async gexGeral(req,res){
+        try {
+            const resultado = await DataViewRepository.gexGeral();
+            res.json(resultado);
+        } catch (error) {
+            res.json(error)
+        }
+    }
+
+    async gexGeralTotal(req,res){
+        try {
+            const resultado = await DataViewRepository.gexGeralTotal();
+            res.json(resultado);
+        } catch (error) {
+            res.json(error)
+        }
+    }
+    
+    async dadosCentrais(req,res){
+        try {
+            const resultado = await DataViewRepository.dadosCentrais();
+            res.json(resultado);
+        } catch (error) {
+            res.json(error)
+        }
+    }
+
+    async sr2(req,res){
+        try {
+            const resultado = await DataViewRepository.sr2();
+            res.json(resultado);
+        } catch (error) {
+            res.json(error)
+        }
+    }
+
+    async dadosAps(req,res){
+        try {
+            
+            const resultado = await DataViewRepository.dadosAps();
+            res.json(resultado);
+        } catch (error) {
+            res.json(error)
+        }
+    }
+
     async users(req,res){
         const resultado = await DataViewRepository.dadosUsuarios();
         res.json(resultado);

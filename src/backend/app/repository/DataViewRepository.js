@@ -50,12 +50,62 @@ class DataViewRepository {
         
     }
 
-    logoutTempo(){
+
+    dadosCentrais(){
         return new Promise(async (resolve, reject) => {
-            const resultado = banco.query(`delete from sessions where expiresat > NOW()`);
-            return resolve(resultado)
+            try {
+                const resultado = await banco.query(`select * from dadoscentrais `);
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
         })
     }
+
+    gexGeralTotal(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const resultado = await banco.query(`select colaboradores, servidores, estagiarios, requisitados + cedidos AS reqced, pgdintegral, pgdparcial, presencial, meio, fim from gexgeral where gex = 'TOTAL'`);
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
+
+        })
+    }
+
+    gexGeral(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const resultado = await banco.query(`select gex, colaboradores, servidores, estagiarios, requisitados + cedidos AS reqced, pgdintegral, pgdparcial, presencial, meio, fim from gexgeral where gex != 'TOTAL'`);
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
+        })
+    }
+
+    sr2(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const resultado = await banco.query(`select * from sr2`);
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
+        })
+    }
+
+    dadosAps(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const resultado = await banco.query(`select gex, aps, servidores, estagiarios, requisitados + cedidos as reqced from dadosaps`);
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
+        })    }
+
 
     insertUser(usuario, email, pass, adm, contaHabilitada){
         return consultaSimples(`insert into usuarios(usuario, email, senha, adm, contaHabilitada) values ($1, $2, $3, $4, $5)`, [usuario, email, pass, adm, contaHabilitada], `Erro ao adicionar usuário.`
@@ -110,7 +160,7 @@ class DataViewRepository {
         return consultaSimples(`update usuarios set emailConfirmado = true where token = $1 and timerexpirar > NOW()`, token, `Erro ao confirmar email.`);
     }
 
-    
+
 
 }
 
