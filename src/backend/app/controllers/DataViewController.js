@@ -24,15 +24,6 @@ class DataViewController {
             res.json(error)
         }
     }
-
-    async gexGeralTotal(req,res){
-        try {
-            const resultado = await DataViewRepository.gexGeralTotal();
-            res.json(resultado);
-        } catch (error) {
-            res.json(error)
-        }
-    }
     
     async dadosCentrais(req,res){
         try {

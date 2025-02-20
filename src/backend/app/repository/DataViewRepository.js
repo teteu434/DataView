@@ -62,22 +62,10 @@ class DataViewRepository {
         })
     }
 
-    gexGeralTotal(){
-        return new Promise(async (resolve, reject) => {
-            try {
-                const resultado = await banco.query(`select colaboradores, servidores, estagiarios, requisitados + cedidos AS reqced, pgdintegral, pgdparcial, presencial, meio, fim from gexgeral where gex = 'TOTAL'`);
-                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
-            } catch (error) {
-                return reject(error)
-            }
-
-        })
-    }
-
     gexGeral(){
         return new Promise(async (resolve, reject) => {
             try {
-                const resultado = await banco.query(`select gex, colaboradores, servidores, estagiarios, requisitados + cedidos AS reqced, pgdintegral, pgdparcial, presencial, meio, fim from gexgeral where gex != 'TOTAL'`);
+                const resultado = await banco.query(`select gex, colaboradores, servidores, estagiarios, requisitados + cedidos AS reqced, pgdintegral, pgdparcial, presencial, meio, fim from gexgeral`);
                 return resolve(JSON.parse(JSON.stringify(resultado.rows)))
             } catch (error) {
                 return reject(error)
@@ -88,7 +76,7 @@ class DataViewRepository {
     sr2(){
         return new Promise(async (resolve, reject) => {
             try {
-                const resultado = await banco.query(`select * from sr2`);
+                const resultado = await banco.query(`select setor, servidores, estagiarios, requisitados + cedidos as reqced from dadossr2`);
                 return resolve(JSON.parse(JSON.stringify(resultado.rows)))
             } catch (error) {
                 return reject(error)

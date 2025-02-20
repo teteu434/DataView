@@ -56,6 +56,8 @@
           <option value="Varginha">11031 - Gerência Executiva Varginha</option>
           <option value="Diamantina">11032 - Gerência Executiva Diamantina</option>
           <option value="Teófilo Otoni">11033 - Gerência Executiva Teófilo Otoni</option>
+          <option value="SUPERINTENDENCIA REGIONAL SUDESTE II">11150 - Superintendência Regional II</option>
+          <option value="TOTAL">Total Geral</option>
 				</select>
 
       </div>
@@ -195,7 +197,7 @@
 				</div>
 				<!--end breadcrumb-->
       
-        <h3 id="indicador" class="mb-0 text-uppercase">Cadastro Geral</h3>
+        <h3 id="textoCentral" class="mb-0 text-uppercase">Cadastro Geral</h3>
 				<hr>
           				      
 			  
@@ -345,12 +347,11 @@
   <script type="module">
     import {usuario, agencias, valores, preencherTabelaDadosCentrais} from "./frontend/js/config.js";
 
-    //valores(null);
 
     document.addEventListener("DOMContentLoaded", async () => {
       await usuario();
-      await valores(null);
-      await preencherTabelaDadosCentrais(null).then(() => {
+      await valores("TOTAL");
+      await preencherTabelaDadosCentrais("TOTAL").then(() => {
         if ($.fn.DataTable.isDataTable('#example')) {
         $('#example').DataTable().destroy();
         }
@@ -369,6 +370,9 @@
         if ($.fn.DataTable.isDataTable('#example')) {
         $('#example').DataTable().destroy();
         }
+        $(document).ready(function() {
+			    $('#example').DataTable();
+		    } );
         
       })
 
@@ -386,10 +390,9 @@
   <script src="./public/perfect-scrollbar/js/perfect-scrollbar.js"></script>
   
   <!--plugins-->
-
-  <script src="./public/metismenu/metisMenu.min.js"></script>
   <script src="./public/js/jquery.min.js"></script>
   <script src="./public/datatable/js/jquery.dataTables.min.js"></script>
+  <script src="./public/metismenu/metisMenu.min.js"></script>
   <script src="./public/datatable/js/dataTables.bootstrap5.min.js"></script>
 	<script>
 

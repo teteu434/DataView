@@ -1,8 +1,64 @@
-import { fetchData, fetchData7, fetchData8, fetchData9, fetchData10 } from "../extrairData.js";
+import { fetchData7, fetchData9, fetchData10 } from "../extrairData.js";
+
+function preencheTotalSR2(dados9, chart){
+  const servidores = dados9.map(item => item.servidores).slice(0,10)
+  const estagiarios = dados9.map(item => item.estagiarios).slice(0,10)
+  const setores = dados9.map(item => item.setor).slice(0,10)
+  const reqCed = dados9.map(item => item.reqced).slice(0,10)
+  chart.updateSeries([{
+    name: "Servidores",
+    data: servidores
+  }, {
+    name: "Estagiários",
+    data: estagiarios
+  }, {
+    name: "Requisitados/Cedidos",
+    data: reqCed
+  }]);
+  
+  chart.updateOptions({
+    plotOptions : {
+      bar: {
+        horizontal: !1,
+        columnWidth: "60%",
+        endingShape: "rounded"
+    }
+    },
+    xaxis : {
+      categories: setores
+    }
+  })
+}
+
+function preencheTotalGEX(dados7, chart, gerenciaSelecionada){
+  chart.updateSeries([{
+    name: "Servidores",
+    data: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores)
+  }, {
+    name: "Estagiários",
+    data: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.estagiarios)
+  }, {
+    name: "Requisitados/Cedidos",
+    data: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.reqced)
+  }]);
+  
+  chart.updateOptions({
+    plotOptions : {
+      bar: {
+        horizontal: !1,
+        columnWidth: "60%",
+        endingShape: "rounded"
+    }
+    },
+    xaxis : {
+      categories: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.aps)
+    }
+  })
+}
 
 $(async function() {
 	"use strict";
-  const dados = await fetchData();
+  const dados9 = await fetchData9();
   const dados7 = await fetchData7();
   const dados10 = await fetchData10();
 
@@ -11,13 +67,13 @@ $(async function() {
   var options = {
     series: [{
       name: "Servidores",
-      data: dados10.map(item => item.servidores)
+      data: dados10.filter(item => item.gex != "TOTAL").map(item => item.servidores)
     }, {
       name: "Estagiários",
-      data: dados10.map(item => item.estagiarios)
+      data: dados10.filter(item => item.gex != "TOTAL").map(item => item.estagiarios)
     }, {
       name: "Requisitados/Cedidos",
-      data: dados10.map(item => item.reqced)
+      data: dados10.filter(item => item.gex != "TOTAL").map(item => item.reqced)
     }],
     chart: {
       foreColor: "#9ba7b2",
@@ -55,7 +111,7 @@ $(async function() {
       theme: "dark",
     },
   xaxis: {
-    categories: dados10.map(item => item.gex)
+    categories: dados10.filter(item => item.gex != "TOTAL").map(item => item.gex)
   }
   };
 
@@ -65,7 +121,8 @@ $(async function() {
   // total de servidores, estagiários e requisitados/cedidos
 
     var options2 = {
-        series: [dados[0].servidores, dados[0].estagiarios, dados[0].reqced],
+        series: [dados10.filter(item => item.gex == "TOTAL")[0].servidores, 
+          dados10.filter(item => item.gex == "TOTAL")[0].estagiarios, dados10.filter(item => item.gex == "TOTAL")[0].reqced],
         chart: {
             foreColor: "#9ba7b2",
             height: 380,
@@ -97,7 +154,7 @@ $(async function() {
 
     var options2 = {
       
-      series: [dados[0].pgdparcial, dados[0].pgdintegral, dados[0].presencial],
+      series: [dados10.filter(item => item.gex == "TOTAL")[0].pgdparcial, dados10.filter(item => item.gex == "TOTAL")[0].pgdintegral, dados10.filter(item => item.gex == "TOTAL")[0].presencial],
       chart: {
           foreColor: "#9ba7b2",
           height: 380,
@@ -128,7 +185,7 @@ $(async function() {
     //area meio x area fim
 
     var options2 = {
-      series: [dados[0].meio, dados[0].fim],
+      series: [dados10.filter(item => item.gex == "TOTAL")[0].meio, dados10.filter(item => item.gex == "TOTAL")[0].fim],
       chart: {
           foreColor: "#9ba7b2",
           height: 380,
@@ -151,7 +208,7 @@ $(async function() {
           }
       }]
   };
-
+  
     var chart3 = new ApexCharts(document.querySelector("#servidorMeioFim"), options2);
     chart3.render();
 
@@ -159,6 +216,41 @@ $(async function() {
     document.getElementById('srGex').addEventListener('change', (event)=> {
       event.preventDefault();
       const selecao = event.target.value;
+      const dados1 = dados9.map(item => item.setor)
+      if(selecao == "total"){
+        const gex = document.getElementById("gerenciaSelect").value;
+        console.log(gex)
+        if(gex == "SUPERINTENDENCIA REGIONAL SUDESTE II"){
+          preencheTotalSR2(dados9, chart)
+        } else {
+          preencheTotalGEX(dados7, chart, gex)
+        }
+      }
+      else if(dados1.includes(selecao)){
+        chart.updateSeries([{
+          name: "Servidores",
+          data: [dados9.filter(item => item.setor == selecao).map(item => item.servidores)[0]]
+        }, {
+          name: "Estagiários",
+          data: [dados9.filter(item => item.setor == selecao).map(item => item.estagiarios)[0]]
+        }, {
+          name: "Requisitados/Cedidos",
+          data: [dados9.filter(item => item.setor == selecao).map(item => item.reqced)[0]]
+        }]);
+        
+        chart.updateOptions({
+          plotOptions : {
+            bar: {
+              horizontal: !1,
+              columnWidth: "30%",
+              endingShape: "rounded"
+          }
+          },
+          xaxis:{
+            categories: dados9.filter(item => item.setor == selecao).map(item => item.setor)
+          }
+        })
+      }else{
         chart.updateSeries([{
           name: "Servidores",
           data: dados7.filter(item => item.aps == selecao).map(item => item.servidores)
@@ -171,10 +263,19 @@ $(async function() {
         }]);
         
         chart.updateOptions({
+          plotOptions : {
+            bar: {
+              horizontal: !1,
+              columnWidth: "30%",
+              endingShape: "rounded"
+            }
+          },
           xaxis:{
             categories: dados7.filter(item => item.aps == selecao).map(item => item.aps)
           }
         })
+      }
+
       
       
     })
@@ -182,29 +283,12 @@ $(async function() {
     document.getElementById('gerenciaSelect').addEventListener('change', (event)=> {
       event.preventDefault();
       const gerenciaSelecionada = event.target.value;
-      chart.updateSeries([{
-        name: "Servidores",
-        data: [dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores)[0]]
-      }, {
-        name: "Estagiários",
-        data: [dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.estagiarios)[0]]
-      }, {
-        name: "Requisitados/Cedidos",
-        data: [dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.reqced)[0]]
-      }]);
-      
-      chart.updateOptions({
-        plotOptions : {
-          bar: {
-            horizontal: !1,
-            columnWidth: "30%",
-            endingShape: "rounded"
-        }
-        },
-        xaxis : {
-          categories: [dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.aps)[0]]
-        }
-      })
+      if(gerenciaSelecionada == "SUPERINTENDENCIA REGIONAL SUDESTE II"){
+        preencheTotalSR2(dados9, chart)
+      } else {
+        preencheTotalGEX(dados7, chart, gerenciaSelecionada)
+      }
+
 
       chart1.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores),
         dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.estagiarios),
