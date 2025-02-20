@@ -1,60 +1,6 @@
 import { fetchData7, fetchData9, fetchData10 } from "../extrairData.js";
+import { preencheGEX, preencheTotal, preencheTotalSR2 } from "./updateGraphic.js";
 
-function preencheTotalSR2(dados9, chart){
-  const servidores = dados9.map(item => item.servidores).slice(0,10)
-  const estagiarios = dados9.map(item => item.estagiarios).slice(0,10)
-  const setores = dados9.map(item => item.setor).slice(0,10)
-  const reqCed = dados9.map(item => item.reqced).slice(0,10)
-  chart.updateSeries([{
-    name: "Servidores",
-    data: servidores
-  }, {
-    name: "Estagiários",
-    data: estagiarios
-  }, {
-    name: "Requisitados/Cedidos",
-    data: reqCed
-  }]);
-  
-  chart.updateOptions({
-    plotOptions : {
-      bar: {
-        horizontal: !1,
-        columnWidth: "60%",
-        endingShape: "rounded"
-    }
-    },
-    xaxis : {
-      categories: setores
-    }
-  })
-}
-
-function preencheTotalGEX(dados7, chart, gerenciaSelecionada){
-  chart.updateSeries([{
-    name: "Servidores",
-    data: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores)
-  }, {
-    name: "Estagiários",
-    data: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.estagiarios)
-  }, {
-    name: "Requisitados/Cedidos",
-    data: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.reqced)
-  }]);
-  
-  chart.updateOptions({
-    plotOptions : {
-      bar: {
-        horizontal: !1,
-        columnWidth: "60%",
-        endingShape: "rounded"
-    }
-    },
-    xaxis : {
-      categories: dados7.filter(item => item.gex == gerenciaSelecionada).map(item => item.aps)
-    }
-  })
-}
 
 $(async function() {
 	"use strict";
@@ -223,7 +169,7 @@ $(async function() {
         if(gex == "SUPERINTENDENCIA REGIONAL SUDESTE II"){
           preencheTotalSR2(dados9, chart)
         } else {
-          preencheTotalGEX(dados7, chart, gex)
+          preencheGEX(dados7, chart, gex)
         }
       }
       else if(dados1.includes(selecao)){
@@ -285,9 +231,9 @@ $(async function() {
       const gerenciaSelecionada = event.target.value;
       if(gerenciaSelecionada == "SUPERINTENDENCIA REGIONAL SUDESTE II"){
         preencheTotalSR2(dados9, chart)
-      } else {
-        preencheTotalGEX(dados7, chart, gerenciaSelecionada)
-      }
+      } else if(gerenciaSelecionada == "TOTAL"){
+        preencheTotal(dados10, chart)
+      } else preencheGEX(dados7, chart, gerenciaSelecionada)
 
 
       chart1.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores),

@@ -49,6 +49,7 @@ export async function agencias(gerenciaSelecionada){
         dados2.forEach( setores => {
             inner += `<option value = "${setores.setor}"> ${setores.setor} </option>`;
         })
+        inner += `<option value = "total"> Total </option>`
     }
     else if(gerenciaSelecionada != "TOTAL"){
         inner = `<option selected="" disabled>Selecione uma agência</option>`;
@@ -56,8 +57,9 @@ export async function agencias(gerenciaSelecionada){
         agencias.forEach(agencia => {
             inner += `<option value = "${agencia.aps}"> ${agencia.aps} </option>`;
         })
+        inner += `<option value = "total"> Total </option>`
     }
-    inner += `<option value = "total"> Total </option>`
+    
     document.getElementById("srGex").innerHTML = inner; 
     
 }
