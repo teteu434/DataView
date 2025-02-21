@@ -24,8 +24,8 @@ router.get('/login.html', (req, res) =>{
 })
 
 router.get('/sessao', DataViewController.sessao)
-router.get('/tabela', authenticate.autenticaRotaTabela, DataViewController.tabela)
-router.get('/users', authenticate.autenticaRotaUsuario, DataViewController.users)
+router.get('/tabela', authenticate.autenticaRotaUsuario, DataViewController.tabela)
+router.get('/users', authenticate.autenticaRotaAdm, DataViewController.users)
 router.get('/gexGeral', authenticate.autenticaRotaUsuario, DataViewController.gexGeral)
 router.get('/dadosCentrais', authenticate.autenticaRotaUsuario, DataViewController.dadosCentrais)
 router.get('/sr2', authenticate.autenticaRotaUsuario, DataViewController.sr2)

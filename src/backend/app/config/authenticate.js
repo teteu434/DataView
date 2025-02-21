@@ -24,7 +24,7 @@ class authenticate {
 
     }    
 
-    async autenticaRotaUsuario(req, res, next){
+    async autenticaRotaAdm(req, res, next){
         try {
             const id = req.cookies.sessionId;
             if(id){
@@ -38,7 +38,7 @@ class authenticate {
         }
     }
     
-    async autenticaRotaTabela(req, res, next){
+    async autenticaRotaUsuario(req, res, next){
         try {
             const id = req.cookies.sessionId;
             if(id){
