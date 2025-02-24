@@ -50,7 +50,6 @@ class DataViewRepository {
         
     }
 
-
     dadosCentrais(){
         return new Promise(async (resolve, reject) => {
             try {
@@ -73,6 +72,28 @@ class DataViewRepository {
         })
     }
 
+    gexFim(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const resultado = await banco.query(`select gex, servidores, pgdintegral, pgdparcial, presencial, atendimentoaps, servicosocial, terapiaocupacional, ceab, ceabrid, ceabman, ceabdj, ceabmob, ceabintegral, ceabparcial, ceabpresencial from gexfim`);
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
+        })
+    }
+
+    gexMeio(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const resultado = await banco.query(`select gex, servidores, pgdintegral, pgdparcial, presencial, atendimentoaps, servicosocial, terapiaocupacional, ceab, ceabrid, ceabman, ceabdj, ceabmob from gexmeio`);
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
+        })
+    }
+
     sr2(){
         return new Promise(async (resolve, reject) => {
             try {
@@ -87,7 +108,7 @@ class DataViewRepository {
     dadosAps(){
         return new Promise(async (resolve, reject) => {
             try {
-                const resultado = await banco.query(`select gex, aps, servidores, estagiarios, requisitados + cedidos as reqced from dadosaps`);
+                const resultado = await banco.query(`select gex, aps, servidores, estagiarios, ceab, atendimentoaps, requisitados + cedidos as reqced from dadosaps`);
                 return resolve(JSON.parse(JSON.stringify(resultado.rows)))
             } catch (error) {
                 return reject(error)

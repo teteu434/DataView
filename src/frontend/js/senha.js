@@ -1,9 +1,9 @@
 
 
-import { fetchData3 } from './extrairData.js';
+import { fetchData } from './extrairData.js';
 import { reqLocal } from './search.js';
 
-const sessao = await fetchData3();
+const sessao = await fetchData("sessao");
 
 if(sessao.logado){
     alert(`Você já está logado como ${sessao.usuario}. Para fazer novo Login, favor fazer Logout no site.

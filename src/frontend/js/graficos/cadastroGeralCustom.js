@@ -1,12 +1,12 @@
-import { fetchData7, fetchData9, fetchData10 } from "../extrairData.js";
-import { preencheGEX, preencheTotal, preencheTotalSR2 } from "./updateGraphic.js";
+import { fetchData } from "../extrairData.js";
+import { atualizaGraficoPizzaGeral, preencheGEXGeral, preencheTotalGeral, preencheTotalSR2Geral } from "./updateGraphic.js";
 
 
 $(async function() {
 	"use strict";
-  const dados9 = await fetchData9();
-  const dados7 = await fetchData7();
-  const dados10 = await fetchData10();
+  const dados9 = await fetchData("sr2");
+  const dados7 = await fetchData("dadosAps");
+  const dados10 = await fetchData("gexGeral");
 
   //grafico de gex/sr
 
@@ -165,11 +165,10 @@ $(async function() {
       const dados1 = dados9.map(item => item.setor)
       if(selecao == "total"){
         const gex = document.getElementById("gerenciaSelect").value;
-        console.log(gex)
         if(gex == "SUPERINTENDENCIA REGIONAL SUDESTE II"){
-          preencheTotalSR2(dados9, chart)
+          preencheTotalSR2Geral(dados9, chart)
         } else {
-          preencheGEX(dados7, chart, gex)
+          preencheGEXGeral(dados7, chart, gex)
         }
       }
       else if(dados1.includes(selecao)){
@@ -230,25 +229,13 @@ $(async function() {
       event.preventDefault();
       const gerenciaSelecionada = event.target.value;
       if(gerenciaSelecionada == "SUPERINTENDENCIA REGIONAL SUDESTE II"){
-        preencheTotalSR2(dados9, chart)
+        preencheTotalSR2Geral(dados9, chart)
       } else if(gerenciaSelecionada == "TOTAL"){
-        preencheTotal(dados10, chart)
-      } else preencheGEX(dados7, chart, gerenciaSelecionada)
+        preencheTotalGeral(dados10, chart)
+      } else preencheGEXGeral(dados7, chart, gerenciaSelecionada)
 
 
-      chart1.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores),
-        dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.estagiarios),
-        dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.reqced)
-       ].flat());
-
-      chart2.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdparcial),
-        dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdintegral),
-        dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.presencial)
-       ].flat());
-
-       chart3.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.meio),
-        dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.fim)
-       ].flat())
+      atualizaGraficoPizzaGeral(dados10, chart1, chart2, chart3, gerenciaSelecionada)
     })
 
 

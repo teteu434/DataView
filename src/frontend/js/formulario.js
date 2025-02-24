@@ -1,5 +1,5 @@
 
-import { fetchData2 } from './extrairData.js';
+import { fetchData } from './extrairData.js';
 
     document.getElementById("telaEntrada").addEventListener('submit', async(event) =>{
             
@@ -10,7 +10,7 @@ import { fetchData2 } from './extrairData.js';
                 const contaHabilitada = 0; //conta começa desabilitada
                 const adm = 0; // conta começa só como usuário
                 event.preventDefault();
-                const dados = await fetchData2();    
+                const dados = await fetchData("users");    
                 for (const user of dados){
                     if(user.email == email || user.usuario == usuario){
                         userIgual = true;
@@ -27,8 +27,7 @@ import { fetchData2 } from './extrairData.js';
                     
                     
                     try{
-                        console.log('teste');
-                        
+
                         
                         const resposta = await fetch(`${reqLocal}/insertUser`, {
                             method: 'POST',

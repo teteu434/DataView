@@ -22,7 +22,6 @@
     <link href="./frontend/css/bootstrap-extended.css" rel="stylesheet">
     <link href="./frontend/css/main/main.css" rel="stylesheet">
     <link href="./frontend/css/dark/dark-theme.css" rel="stylesheet">
-    <link href="./frontend/css/semi-dark/semi-dark.css" rel="stylesheet">
     <link href="./frontend/css/com borda/bordered-theme.css" rel="stylesheet">
     <link href="./frontend/css/responsivo/responsive.css" rel="stylesheet">
     <script src="./frontend/js/logout.js"></script>
@@ -63,12 +62,7 @@
         
       </li>
     </ul>
-    <script type="module">
-      import {usuario} from "./frontend/js/config.js"
-      document.addEventListener("DOMContentLoaded", async () => {
-        await usuario();
-      });
-    </script>
+
   </nav>
 </header>
 <!--end top header-->
@@ -194,7 +188,7 @@
 				</div>
 				<!--end breadcrumb-->
       
-        <h3 id="textoCentral" class="mb-0 text-uppercase">textoCentrales de Pactuação</h3>
+        <h3 id="textoCentral" class="mb-0 text-uppercase">Indicadores de Pactuação</h3>
 				
           				      
 			  
@@ -206,20 +200,12 @@
             <button id="spinner" class="btn btn-success d-none" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               <span class="visually-hidden">Loading...</span></button>
 						<div class="table-responsive">
-							<table id="pactuacao" class="table table-striped table-bordered">
+							<table id="tabelaPactuacao" class="table table-striped table-bordered">
 							</table>
 						</div>
 					</div>
 				</div>
         
-        <script type="module">
-          import { carregando, preencherTabelaPactuacao } from "./frontend/js/config.js";
-      
-          document.addEventListener("DOMContentLoaded", async () => {
-              carregando(); 
-              await preencherTabelaPactuacao(); 
-          });
-      </script>
 
     </div>
   </main>
@@ -243,7 +229,18 @@
   <!--end cart-->
 
 
+  <script type="module">
+    import { usuario } from "./frontend/js/config.js"
+    import { carregando } from "./frontend/js/config.js";
+    import { preencherTabelaPactuacao } from "./frontend/js/tabelas/pactuacao.js"
+      
+    document.addEventListener("DOMContentLoaded", async () => {
+      await usuario();
+      carregando(); 
+      await preencherTabelaPactuacao(); 
+    });
 
+  </script>
 
   <!--bootstrap js-->
   <script src="./public/js/bootstrap.bundle.min.js"></script>
@@ -255,13 +252,7 @@
 
   <script src="./public/metismenu/metisMenu.min.js"></script>
   <script src="./public/datatable/js/jquery.dataTables.min.js"></script>
-  <script src="./public/datatable/js/dataTables.bootstrap5.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#example').DataTable();
-		  } );
-	</script>
-  
+  <script src="./public/datatable/js/dataTables.bootstrap5.min.js"></script>  
   <script src="./public/simplebar/js/simplebar.min.js"></script>
   <script src="./frontend/js/main.js"></script>
 

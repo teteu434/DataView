@@ -24,6 +24,24 @@ class DataViewController {
             res.json(error)
         }
     }
+
+    async gexFim(req,res){
+        try {
+            const resultado = await DataViewRepository.gexFim();
+            res.json(resultado);
+        } catch (error) {
+            res.json(error)
+        }
+    }
+    
+    async gexMeio(req,res){
+        try {
+            const resultado = await DataViewRepository.gexMeio();
+            res.json(resultado);
+        } catch (error) {
+            res.json(error)
+        }
+    }
     
     async dadosCentrais(req,res){
         try {
