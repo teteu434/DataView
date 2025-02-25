@@ -13,9 +13,9 @@ export async function enviarEmail(destinatario, assunto, mensagem) {
     }
 
     sgMail.send(message).then(() =>{
-        console.log('Email enviado!')
+        console.log('Email enviado!');
     }).catch((error) => {
-        console.log(error)
+        console.log(error);
     })
     
 }
