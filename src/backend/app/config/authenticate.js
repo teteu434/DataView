@@ -9,15 +9,11 @@ class authenticate {
             const id = req.cookies.sessionId;
             if(id){
                 const resultado = await DataViewRepository.usuarioLogado(id)
-                if(resultado.correto && resultado.resultado.length != 0){
-                    return next();
-                    
-                } else{
-                    return res.redirect('/login.html')
-                }
-            } else{
-                return res.redirect('/login.html')
-            }   
+                if(resultado.correto && resultado.resultado.length != 0) return next();
+            }    
+
+            return res.redirect('/login.html')
+   
         } catch (error) {
             console.log(error)
         }    
@@ -30,8 +26,9 @@ class authenticate {
             if(id){
                 const resultado = await DataViewRepository.usuarioLogado(id)
                 if(resultado.resultado[0].adm == true) return next();
-                else return res.send('Rota não permitida! Voltar à página anterior.')
-            } else return res.send('Rota não permitida! Voltar à página anterior.')
+            } 
+
+            return res.send('Rota não permitida! Voltar à página anterior.')
             
         } catch (error) {
             console.log(error)
@@ -44,8 +41,9 @@ class authenticate {
             if(id){
                 const resultado = await DataViewRepository.usuarioLogado(id)
                 if(resultado.correto && resultado.resultado.length != 0) return next();
-                else return res.send('Rota não permitida! Voltar à página anterior.')
-            } else return res.send('Rota não permitida! Voltar à página anterior.')
+            }
+            
+            return res.send('Rota não permitida! Voltar à página anterior.')
             
         } catch (error) {
             console.log(error)

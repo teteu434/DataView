@@ -1,5 +1,5 @@
 export async function preencherTabelaPactuacao() {
-    const table = document.querySelector("#tabela");
+    const table = document.querySelector("#tabelaPactuacao");
     const { fetchData } = await import('../extrairData.js');
     document.getElementById('gerenciaSelect').addEventListener('change', (event)=> {
         event.preventDefault();
@@ -58,7 +58,7 @@ export async function preencherTabelaPactuacao() {
 
         });
             
-            const tabela = document.getElementById('tabela');
+            const tabela = document.getElementById('tabelaPactuacao');
             const observerCallback = () => {
                 
                     mesclaCelula();
@@ -80,7 +80,7 @@ export async function preencherTabelaPactuacao() {
 function colorirTabela(){
 
    
-    const tabela = document.getElementById('tabela');
+    const tabela = document.getElementById('tabelaPactuacao');
 
     for (let i = 1; i < tabela.rows.length - 1; i++) {
         const linhaMeta = tabela.rows[i]; 
@@ -97,15 +97,18 @@ function colorirTabela(){
                     const resultado = parseFloat(linhaResultado.cells[j].innerText);
                 
                     
-                    if (resultado < meta){
-                        linhaResultado.cells[j].style.color = 'black';
-                        linhaResultado.cells[j].style.backgroundColor = '#ba2727'
-                    } 
-                    else if (resultado == meta) linhaResultado.cells[j].style.backgroundColor = 'yellow'
-                    else{
-                        linhaResultado.cells[j].style.color = 'black';
-                        linhaResultado.cells[j].style.backgroundColor = '#2f822f'
-                    } 
+                        let icone = '';
+
+                        if (resultado < meta) {
+                            icone = '<span style="color: red;">&#x25BC;</span>'; 
+                        } else if (resultado > meta) {
+                            icone = '<span style="color: green;">&#x25B2;</span>'; 
+                        } else {
+                            icone = '<span style="color: gold;">&#9644;</span>'; 
+                        }
+        
+                        
+                        linhaResultado.cells[j].innerHTML += ` ${icone}`; 
                 }
             }
     
@@ -116,52 +119,41 @@ function colorirTabela(){
     
 } 
 
-function mesclaCelula(){
-    const tabela = document.getElementById('tabela');
-    
-    
-    
-        for (let i = 1; i < tabela.rows.length; i+=2) {
-            const linhaAtual = tabela.rows[i];
-            const linhaSeguinte = tabela.rows[i + 1];
-            
-            if(linhaSeguinte != undefined){
-                if (linhaAtual.cells[0].innerText === linhaSeguinte.cells[0].innerText ||
-                    linhaSeguinte.cells[2].innerText == 0
-                ) {
-                    linhaAtual.cells[0].rowSpan = 2;
-                    linhaSeguinte.deleteCell(0); 
-                }
-        
-                if (linhaAtual.cells[1].textContent.trim() === "Meta" && 
-                    linhaSeguinte.cells[0].textContent.trim() === "Resultado"){
-                        
-                        linhaAtual.cells[2].rowSpan = 2;
-                        linhaAtual.cells[3].rowSpan = 2;
 
-                        linhaSeguinte.deleteCell(1); 
-                        linhaSeguinte.deleteCell(2);
-                    }
-            
+function mesclaCelula() {
+    const tabela = document.getElementById('tabelaPactuacao');
 
-                
-                if(linhaSeguinte.cells[0].textContent.trim() === "Resultado" ){
-                    
-                    
-                    for(let j = 1; j < tabela.rows[0].cells.length - 3; j++){
-                        
+    for (let i = 1; i < tabela.rows.length; i += 2) {
+        const linhaAtual = tabela.rows[i];
+        const linhaSeguinte = tabela.rows[i + 1];
 
-                        if(tabela.rows[i+1].cells[j].innerText == 0 || tabela.rows[i+1].cells[j].textContent.trim() == '0%'){
-                            
-                            tabela.rows[i+1].cells[j].innerText = '-'
-                        } 
-                        
+        if (linhaSeguinte) {
+            if (linhaAtual.cells[0].innerText === linhaSeguinte.cells[0].innerText ||
+                linhaSeguinte.cells[2].innerText == 0
+            ) {
+                linhaAtual.cells[0].rowSpan = 2;
+                linhaSeguinte.deleteCell(0);
+            }
+
+            if (linhaAtual.cells[1].textContent.trim() === "Meta" &&
+                linhaSeguinte.cells[0].textContent.trim() === "Resultado") {
+
+                linhaAtual.cells[2].rowSpan = 2;
+                linhaAtual.cells[3].rowSpan = 2;
+
+                linhaSeguinte.deleteCell(2); 
+                linhaSeguinte.deleteCell(1);
+            }
+
+            if (linhaSeguinte.cells[0].textContent.trim() === "Resultado") {
+                for (let j = tabela.rows[0].cells.length - 4; j >= 1; j--) { 
+                    if (tabela.rows[i + 1].cells[j].innerText == 0 ||
+                        tabela.rows[i + 1].cells[j].textContent.trim() == '0%') {
+                        tabela.rows[i + 1].cells[j].innerText = '-';
                     }
                 }
-            }    
+            }
+        }
     }
-        
-    
-
 }
 
