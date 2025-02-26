@@ -250,7 +250,7 @@ input::placeholder {
 }
 
 .fixed-box {
-  width: 130px;
+  width: 13%;
   height: 100px;
   display: flex;
   flex-direction: column;
