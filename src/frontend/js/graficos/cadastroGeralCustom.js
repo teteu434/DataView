@@ -163,7 +163,7 @@ $(async function() {
       event.preventDefault();
       const selecao = event.target.value;
       const dados1 = dados9.map(item => item.setor)
-      if(selecao == "total"){
+      if(selecao == "geral"){
         const gex = document.getElementById("gerenciaSelect").value;
         if(gex == "SUPERINTENDENCIA REGIONAL SUDESTE II"){
           preencheTotalSR2Geral(dados9, chart)

@@ -49,7 +49,7 @@ export async function agencias(gerenciaSelecionada){
         dados2.forEach( setores => {
             inner += `<option value = "${setores.setor}"> ${setores.setor} </option>`;
         })
-        inner += `<option value = "total"> Total </option>`
+        
     }
     else if(gerenciaSelecionada != "TOTAL"){
         inner = `<option selected="" disabled>Selecione uma agência</option>`;
@@ -57,9 +57,9 @@ export async function agencias(gerenciaSelecionada){
         agencias.forEach(agencia => {
             inner += `<option value = "${agencia.aps}"> ${agencia.aps} </option>`;
         })
-        inner += `<option value = "total"> Total </option>`
+        
     }
-    
+    inner += `<option value = "geral"> Total </option>`
     document.getElementById("srGex").innerHTML = inner; 
     
 }
@@ -106,6 +106,27 @@ export async function valoresGexFim(gerenciaSelecionada){
 
 }
 
+
+export async function valoresGexMeio(gerenciaSelecionada){
+
+    const ids = ['servidores', 'integral', 'parcial', 'presencial', 'gex', 'atendimento', 'analise', 'beneficio'];
+    const { fetchData } = await import('./extrairData.js');
+    const dados = await fetchData("gexMeio");
+    const resultado = dados.filter(item => item.gex == gerenciaSelecionada).map(item =>
+            [
+                item.servidores, item.pgdintegral, item.pgdparcial, item.presencial, 
+                item.servidorgex, item.atendimento, item.analise, item.beneficio
+            ]
+        )[0];
+    if(gerenciaSelecionada == "TOTAL") document.getElementById("textoCentral").innerHTML = `Cadastro GEX (Meio)`;
+    else document.getElementById("textoCentral").innerHTML = `Cadastro GEX (Meio) - ${gerenciaSelecionada}`;
+        
+    
+    ids.forEach((id, i) =>{
+        document.getElementById(id).innerText = resultado[i]
+    })
+
+}
 
 
 

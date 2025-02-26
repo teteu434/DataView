@@ -35,17 +35,17 @@ input::-moz-placeholder {
   opacity: 0.3 !important;
 }
 
-#tabelaPactuacao {
+#tabelaPactuacao, #tabelaDados {
     width: 100%;
     table-layout: fixed; 
 }
 
-#tabelaPactuacao th,
-#tabelaPactuacao td {
+#tabelaPactuacao th, #tabelaDados th,
+#tabelaPactuacao td, #tabelaDados th {
     text-align: center; 
     vertical-align: middle;
     width: 110px; 
-    height: 40px;
+    height: 50px;
 }
 
 
@@ -247,6 +247,34 @@ input::placeholder {
 #forgot{
   position: relative;
   right: 60px;
+}
+
+.fixed-box {
+  width: 150px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.number-box {
+  margin: 0;
+  line-height: 1;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-box {
+  margin: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 #butao

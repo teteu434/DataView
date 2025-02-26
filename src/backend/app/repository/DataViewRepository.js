@@ -86,7 +86,7 @@ class DataViewRepository {
     gexMeio(){
         return new Promise(async (resolve, reject) => {
             try {
-                const resultado = await banco.query(`select gex, servidores, pgdintegral, pgdparcial, presencial, atendimentoaps, servicosocial, terapiaocupacional, ceab, ceabrid, ceabman, ceabdj, ceabmob from gexmeio`);
+                const resultado = await banco.query(`select gex, servidores, pgdintegral, pgdparcial, presencial, servidorGex, sgrec + sarec as atendimento, sard + samb + sadj + samc as analise, sgben + sais + sestrd + setsman as beneficio, sgrec, sarec, sard, samb, sadj, samc, sgben, sais, sestrd, sestman from gexmeio`);
                 return resolve(JSON.parse(JSON.stringify(resultado.rows)))
             } catch (error) {
                 return reject(error)

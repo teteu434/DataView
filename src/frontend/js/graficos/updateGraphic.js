@@ -81,47 +81,6 @@ export function preencheTotalGeral(dados10, chart){
   })
 }
 
-export async function atualizaGraficoPizzaGeral(dados10, chart1, chart2, chart3, gerenciaSelecionada) {
-
-  chart1.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores),
-    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.estagiarios),
-    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.reqced)
-   ].flat());
-
-  chart2.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdparcial),
-    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdintegral),
-    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.presencial)
-   ].flat());
-
-   chart3.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.meio),
-    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.fim)
-   ].flat())
-}
-
-export async function atualizaGraficoPizzaFim(dadosFim, chart1, chart2, chart3, chart4, gerenciaSelecionada) {
-
-  chart1.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceab),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.atendimentoaps)
-   ].flat());
-
-  chart2.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdparcial),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdintegral),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.presencial)
-   ].flat());
-
-   chart3.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabparcial),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabintegral),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabpresencial)
-   ].flat())
-
-   chart4.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabrid),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabman),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabdj),
-    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabmob)
-   ].flat())
-  
-}
-
 export async function preencheGEXFim(dadosAps, gerenciaSelecionada, chart) {
   chart.updateSeries([{
     name: "Servidores CEAB",
@@ -166,3 +125,57 @@ export async function preencheTotalFim(chart, dadosFim) {
     }
   })
 } 
+
+export async function preencheGEXMeio(dadosMeio, gerenciaSelecionada, chart) {
+  
+}
+
+export async function preencheTotalMeio(dadosMeio, chart) {
+  
+}
+
+
+export async function atualizaGraficoPizzaGeral(dados10, chart1, chart2, chart3, gerenciaSelecionada) {
+
+  chart1.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidores),
+    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.estagiarios),
+    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.reqced)
+   ].flat());
+
+  chart2.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdparcial),
+    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdintegral),
+    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.presencial)
+   ].flat());
+
+   chart3.updateSeries([dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.meio),
+    dados10.filter(item => item.gex == gerenciaSelecionada).map(item => item.fim)
+   ].flat())
+}
+
+export async function atualizaGraficoPizzaFim(dadosFim, chart1, chart2, chart3, chart4, gerenciaSelecionada) {
+
+  chart1.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceab),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.atendimentoaps)
+   ].flat());
+
+  chart2.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdparcial),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdintegral),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.presencial)
+   ].flat());
+
+   chart3.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabparcial),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabintegral),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabpresencial)
+   ].flat())
+
+   chart4.updateSeries([dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabrid),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabman),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabdj),
+    dadosFim.filter(item => item.gex == gerenciaSelecionada).map(item => item.ceabmob)
+   ].flat())
+  
+}
+
+export async function atualizaGraficoPizzaMeio(dadosMeio, chart1, chart2, gerenciaSelecionada) {
+  
+}

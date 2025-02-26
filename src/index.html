@@ -103,7 +103,7 @@
             </li>
             <li><a href="gexFim.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (Fim)</a>
             </li>
-            <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (MEIO)</a>
+            <li><a href="gexMeio.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (Meio)</a>
             </li>
             <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Produtividade GEX</a>
             </li>
@@ -210,35 +210,35 @@
                 <div class="card rounded-4 w-100">
                   <div class="card-body">
                     <div class="d-flex align-items-center justify-content-around flex-wrap gap-4 p-4">
-                      <div class="d-flex flex-column align-items-center justify-content-center gap-2">
-                        <h3 id="colaboradores" class="mb-0"></h3>
-                        <p class="mb-0">Total de Colaboradores</p>
+                      <div id="fixed-box" class="gap-2">
+                        <h3 id="colaboradores" class="number-box"></h3>
+                        <p class="info-box">Colaboradores</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="d-flex flex-column align-items-center justify-content-center gap-2">
-                        <h3 id="estagiarios" class="mb-0"></h3>
-                        <p class="mb-0">Total de Estagiários</p>
+                      <div id="fixed-box" class="gap-2">
+                        <h3 id="estagiarios" class="number-box"></h3>
+                        <p class="info-box">Total de Estagiários</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="d-flex flex-column align-items-center justify-content-center gap-2">
-                        <h3 id="servidores" class="mb-0"></h3>
-                        <p class="mb-0">Total de Servidores</p>
+                      <div id="fixed-box" class="gap-2">
+                        <h3 id="servidores" class="number-box"></h3>
+                        <p class="info-box">Total de Servidores</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="d-flex flex-column align-items-center justify-content-center gap-2">
-                        <h3 id="integral" class="mb-0"></h3>
-                        <p class="mb-0">Total PGD Integral</p>
+                      <div id="fixed-box" class="gap-2">
+                        <h3 id="integral" class="number-box"></h3>
+                        <p class="info-box">Total PGD Integral</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="d-flex flex-column align-items-center justify-content-center gap-2">
-                        <h3 id="parcial" class="mb-0"></h3>
-                        <p class="mb-0">Total PGD Parcial</p>
+                      <div id="fixed-box" class="gap-2">
+                        <h3 id="parcial" class="number-box"></h3>
+                        <p class="info-box">Total PGD Parcial</p>
                       </div>
                       <div class="vr"></div>
                       
-                      <div class="d-flex flex-column align-items-center justify-content-center gap-2">
-                        <h3 id="presencial" class="mb-0"></h3>
-                        <p class="mb-0">Total PGD Presencial</p>
+                      <div id="fixed-box" class="gap-2">
+                        <h3 id="presencial" class="number-box"></h3>
+                        <p class="info-box">Total PGD Presencial</p>
                       </div>
                     </div>
                   </div>
@@ -352,7 +352,7 @@
     document.addEventListener("DOMContentLoaded", async () => {
       await usuario();
       await valoresGexGeral("TOTAL");
-      await preencherTabelaDadosCentrais("TOTAL", "geral").then(() => {
+      await preencherTabelaDadosCentrais("TOTAL", null, "geral").then(() => {
         if ($.fn.DataTable.isDataTable('#tabelaDados')) {
         $('#tabelaDados').DataTable().destroy();
         }
@@ -367,7 +367,7 @@
       const gerenciaSelecionada = event.target.value;
       agencias(gerenciaSelecionada);
       valoresGexGeral(gerenciaSelecionada)
-      preencherTabelaDadosCentrais(gerenciaSelecionada, "geral").then(() => {
+      preencherTabelaDadosCentrais(gerenciaSelecionada, null, "geral").then(() => {
         if ($.fn.DataTable.isDataTable('#tabelaDados')) {
         $('#tabelaDados').DataTable().destroy();
         }
@@ -377,6 +377,22 @@
         
       })
 
+
+    })
+
+    document.getElementById('srGex').addEventListener('change', (event) => {
+      event.preventDefault();
+      const agencia = event.target.value;
+      const gerenciaSelecionada = document.getElementById('gerenciaSelect').value;
+      preencherTabelaDadosCentrais(gerenciaSelecionada, agencia, "geral").then(() => {
+        if ($.fn.DataTable.isDataTable('#tabelaDados')) {
+        $('#tabelaDados').DataTable().destroy();
+        }
+        $(document).ready(function() {
+			    $('#tabelaDados').DataTable();
+		    } );
+        
+      })
 
     })
     

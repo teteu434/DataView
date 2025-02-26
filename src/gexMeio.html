@@ -102,7 +102,7 @@
             </li>
             <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (Fim)</a>
             </li>
-            <li><a href="gexMeio.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (Meio)</a>
+            <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (MEIO)</a>
             </li>
             <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>Produtividade GEX</a>
             </li>
@@ -196,7 +196,7 @@
 				</div>
 				<!--end breadcrumb-->
       
-        <h3 id="textoCentral" class="mb-0 text-uppercase">Cadastro Geral</h3>
+        <h3 id="textoCentral" class="mb-0 text-uppercase"></h3>
 				<hr>
           				      
 			  
@@ -231,45 +231,24 @@
                       </div>
                       <div class="vr"></div>
                       <div class="fixed-box">
-                        <h3 id="servidorAps" class="number-box"></h3>
-                        <p class="info-box">Servidores Atendimento APS</p>
+                        <h3 id="gex" class="number-box"></h3>
+                        <p class="info-box">Servidores GEX</p>
                       </div>
                       <div class="vr"></div>
                       <div class="fixed-box">
-                        <h3 id="servicoSocial" class="number-box"></h3>
-                        <p class="info-box">Servidores Serviço Social</p>
+                        <h3 id="atendimento" class="number-box"></h3>
+                        <p class="info-box">Servidores Atendimento</p>
                       </div>
                       <div class="vr"></div>
                       <div class="fixed-box">
-                        <h3 id="terapiaOcupacional" class="number-box"></h3>
-                        <p class="info-box">Servidores Terapia Ocupacional</p>
+                        <h3 id="analise" class="number-box"></h3>
+                        <p class="info-box">Servidores Centrais de Análise</p>
                       </div>
                       <div class="vr"></div>
                       <div class="fixed-box">
-                        <h3 id="CEAB" class="number-box"></h3>
-                        <p class="info-box">Servidores CEAB</p>
+                        <h3 id="beneficio" class="number-box"></h3>
+                        <p class="info-box">Servidores Benefício</p>
                       </div>
-                      <div class="vr"></div>
-                      <div class="fixed-box">
-                        <h3 id="CEABRID" class="number-box"></h3>
-                        <p class="info-box">Servidores CEAB RID</p>
-                      </div>
-                      <div class="vr"></div>
-                      <div class="fixed-box">
-                        <h3 id="CEABMAN" class="number-box"></h3>
-                        <p class="info-box">Servidores CEAB MAN</p>
-                      </div>
-                      <div class="vr"></div>
-                      <div class="fixed-box">
-                        <h3 id="CEABDJ" class="number-box"></h3>
-                        <p class="info-box">Servidores CEAB DJ</p>
-                      </div>
-                      <div class="vr"></div>
-                      <div class="fixed-box">
-                        <h3 id="CEABMOB" class="number-box"></h3>
-                        <p class="info-box">Servidores CEAB MOB</p>
-                      </div>
-                      <div class="vr"></div>
                     </div>
                   </div>
                 </div>
@@ -292,35 +271,11 @@
                 <div class="card">
                   <div class="card-header py-3">
                     <div class="d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Servidores CEAB por PGD</h5>
+                      <h5 class="mb-0">Servidores GEX</h5>
                     </div>
                   </div>
                   <div class="card-body">
-                    <div id="CEABPGD"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-xl-6">
-                <div class="card">
-                  <div class="card-header py-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Servidores APS X CEAB</h5>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div id="APSCEAB"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-xl-6">
-                <div class="card">
-                  <div class="card-header py-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Servidores por tipo de CEAB</h5>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div id="CEABTipo"></div>
+                    <div id="servidorGex"></div>
                   </div>
                 </div>
               </div>
@@ -329,10 +284,6 @@
                   <div class="card-header py-3">
                     <div class="d-flex align-items-center justify-content-between">
                       <h5 class="mb-0">Gex/SR</h5>
-                      <div class="dropdown">
-                        <select class="form-select" id="srGex"> 
-                        </select>
-                      </div>
                     </div>
                   </div>
                   <div class="card-body">
@@ -387,14 +338,14 @@
 
   <!--end cart-->
   <script type="module">
-    import { usuario, agencias, valoresGexFim } from "./frontend/js/config.js";
+    import { usuario, valoresGexMeio } from "./frontend/js/config.js";
     import { preencherTabelaDadosCentrais } from "./frontend/js/tabelas/dadosCentrais.js"
 
 
     document.addEventListener("DOMContentLoaded", async () => {
       await usuario();
       await valoresGexFim("TOTAL");
-      await preencherTabelaDadosCentrais("TOTAL", null, "fim").then(() => {
+      await preencherTabelaDadosCentrais("TOTAL", null, "meio").then(() => {
         if ($.fn.DataTable.isDataTable('#tabelaDados')) {
         $('#tabelaDados').DataTable().destroy();
         }
@@ -409,7 +360,7 @@
       const gerenciaSelecionada = event.target.value;
       agencias(gerenciaSelecionada);
       valoresGexFim(gerenciaSelecionada)
-      preencherTabelaDadosCentrais(gerenciaSelecionada, null, "fim").then(() => {
+      preencherTabelaDadosCentrais(gerenciaSelecionada, null, "meio").then(() => {
         if ($.fn.DataTable.isDataTable('#tabelaDados')) {
         $('#tabelaDados').DataTable().destroy();
         }
@@ -422,21 +373,6 @@
 
     })
 
-    document.getElementById('srGex').addEventListener('change', (event) => {
-      event.preventDefault();
-      const agencia = event.target.value;
-      const gerenciaSelecionada = document.getElementById('gerenciaSelect').value;
-      preencherTabelaDadosCentrais(gerenciaSelecionada, agencia, "fim").then(() => {
-        if ($.fn.DataTable.isDataTable('#tabelaDados')) {
-        $('#tabelaDados').DataTable().destroy();
-        }
-        $(document).ready(function() {
-			    $('#tabelaDados').DataTable();
-		    } );
-        
-      })
-
-    })
     
   </script>
 
@@ -459,7 +395,7 @@
   
   <script src="./public/simplebar/js/simplebar.min.js"></script>
   <script src="./frontend/js/main.js"></script>
-  <script type="module" src="./frontend/js/graficos/gexFimCustom.js"></script>
+  <script type="module" src="./frontend/js/graficos/gexMeioCustom.js"></script>
   <script src="./frontend/js/graficos/apexcharts.min.js"></script>
 
 

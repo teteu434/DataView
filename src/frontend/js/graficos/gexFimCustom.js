@@ -194,7 +194,7 @@ $(async function() {
     document.getElementById('srGex').addEventListener('change', (event)=> {
       event.preventDefault();
       const selecao = event.target.value;
-      if(selecao == "total"){
+      if(selecao == "geral"){
         const gex = document.getElementById("gerenciaSelect").value;
         preencheGEXFim(dadosAps, gex, chart)
       }else{
