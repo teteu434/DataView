@@ -127,11 +127,69 @@ export async function preencheTotalFim(chart, dadosFim) {
 } 
 
 export async function preencheGEXMeio(dadosMeio, gerenciaSelecionada, chart) {
+  chart.updateSeries([{
+    name: "Servidores Gex",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidorgex)
+  }, {
+    name: "Atendimento",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.atendimento)
+  }, {
+    name: "Central de Análise",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.analise)
+  }, {
+    name: "Benefício",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.beneficio)
+
+}])
+
+chart.updateOptions({
   
+    plotOptions : {
+      bar: {
+        horizontal: !1,
+        columnWidth: "30%",
+        endingShape: "rounded"
+    }
+    },
+    xaxis : {
+      categories: dadosMeio.filter(item => item.gex == gerenciaSelecionada )
+      .map(item => item.gex)
+    }
+  
+})
 }
 
 export async function preencheTotalMeio(dadosMeio, chart) {
-  
+  chart.updateSeries([{
+      name: "Servidores Gex",
+      data: dadosMeio.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II" ).map(item => item.servidorgex)
+    }, {
+      name: "Atendimento",
+      data: dadosMeio.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II").map(item => item.atendimento)
+    }, {
+      name: "Central de Análise",
+      data: dadosMeio.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II").map(item => item.analise)
+    }, {
+      name: "Benefício",
+      data: dadosMeio.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II").map(item => item.beneficio)
+
+  }])
+
+  chart.updateOptions({
+    
+      plotOptions : {
+        bar: {
+          horizontal: !1,
+          columnWidth: "60%",
+          endingShape: "rounded"
+      }
+      },
+      xaxis : {
+        categories: dadosAps.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II" )
+        .map(item => item.gex)
+      }
+    
+  })
 }
 
 
@@ -177,5 +235,19 @@ export async function atualizaGraficoPizzaFim(dadosFim, chart1, chart2, chart3, 
 }
 
 export async function atualizaGraficoPizzaMeio(dadosMeio, chart1, chart2, gerenciaSelecionada) {
-  
+  chart1.updateSeries([dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sgrec, 
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sarec, 
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sard,
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].samb,
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sadj,
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].samc,
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sgben,
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sais,
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sestrd,
+  dadosMeio.filter(item => item.gex == gerenciaSelecionada)[0].sestman])
+
+  chart2.updateSeries([dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdparcial),
+    dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.pgdintegral),
+    dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.presencial)
+   ].flat());
 }

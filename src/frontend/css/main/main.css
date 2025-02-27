@@ -238,12 +238,6 @@ input::placeholder {
   margin-bottom: 0.2rem;
 }
 
-#jonas{
-
-  border: #fffaf5;
-  
-}
-
 #forgot{
   position: relative;
   right: 60px;
@@ -251,6 +245,16 @@ input::placeholder {
 
 .fixed-box {
   width: 13%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.fixed-box-2 {
+  width: 9%;
   height: 100px;
   display: flex;
   flex-direction: column;

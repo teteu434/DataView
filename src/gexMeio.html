@@ -210,42 +210,42 @@
                   <div class="card-body">
                     <div class="d-flex align-items-center justify-content-around flex-wrap gap-4 p-4">
                       
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="servidores" class="number-box"></h3>
                         <p class="info-box">Total de Servidores</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="integral" class="number-box"></h3>
                         <p class="info-box">Total PGD Integral</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="parcial" class="number-box"></h3>
                         <p class="info-box">Total PGD Parcial</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="presencial" class="number-box"></h3>
                         <p class="info-box">Total PGD Presencial</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="gex" class="number-box"></h3>
                         <p class="info-box">Servidores GEX</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="atendimento" class="number-box"></h3>
                         <p class="info-box">Servidores Atendimento</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="analise" class="number-box"></h3>
                         <p class="info-box">Servidores Centrais de Análise</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box">
+                      <div class="fixed-box-2">
                         <h3 id="beneficio" class="number-box"></h3>
                         <p class="info-box">Servidores Benefício</p>
                       </div>
@@ -344,7 +344,7 @@
 
     document.addEventListener("DOMContentLoaded", async () => {
       await usuario();
-      await valoresGexFim("TOTAL");
+      await valoresGexMeio("TOTAL");
       await preencherTabelaDadosCentrais("TOTAL", null, "meio").then(() => {
         if ($.fn.DataTable.isDataTable('#tabelaDados')) {
         $('#tabelaDados').DataTable().destroy();
@@ -358,8 +358,7 @@
     document.getElementById('gerenciaSelect').addEventListener('change', (event)=> {
       event.preventDefault();
       const gerenciaSelecionada = event.target.value;
-      agencias(gerenciaSelecionada);
-      valoresGexFim(gerenciaSelecionada)
+      valoresGexMeio(gerenciaSelecionada)
       preencherTabelaDadosCentrais(gerenciaSelecionada, null, "meio").then(() => {
         if ($.fn.DataTable.isDataTable('#tabelaDados')) {
         $('#tabelaDados').DataTable().destroy();

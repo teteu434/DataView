@@ -26,7 +26,6 @@ export async function preencherTabelaDadosCentrais(gerenciaSelecionada, agencia,
 
     <tbody> `;
 
-    console.log(gerenciaSelecionada, agencia, gex)
     if(gex == "geral") dados = resultado;
     else if(gex == "fim") dados = resultado.filter(item => item.area == "FIM");
     else if(gex == "meio"){
@@ -46,9 +45,20 @@ export async function preencherTabelaDadosCentrais(gerenciaSelecionada, agencia,
     </thead>
 
     <tbody> `;
-        dados = resultado.filter(item => item.area == "MEIO").map(item => [
-            item.matricula, item.servidor, item.situacao, item.srgex, item.unidade, item.ol, item.funcao, item.formacao, item.regime, item.area
-        ][0]);
+        
+        dados = resultado.filter(item => item.area == "MEIO")
+        .map(item => ({
+            matricula: item.matricula,
+            servidor: item.servidor,
+            situacao: item.situacao,
+            srgex: item.srgex,
+            unidade: item.unidade,
+            ol: item.ol,
+            funcao: item.funcao,
+            formacao: item.formacao,
+            regime: item.regime,
+            area: item.area
+          }))
     } 
     
     if(agencias.includes(agencia)) {
@@ -83,8 +93,10 @@ export async function preencherTabelaDadosCentrais(gerenciaSelecionada, agencia,
         })
         
         }else{
-            
-            const result = dados.filter(item => item.srgex == gerenciaSelecionada)
+            const result = dados.filter(item => item.srgex == gerenciaSelecionada).map(item => [
+                item.matricula, item.servidor, item.situacao, item.srgex, item.unidade, item.ol, item.funcao, item.formacao, item.regime, item.area
+            ]);
+
             result.forEach( dado =>{
                 inner += `<tr>`
                 Object.values(dado).forEach( valor => {
