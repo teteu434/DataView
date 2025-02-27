@@ -99,13 +99,24 @@ function colorirTabela(){
                     
                         let icone = '';
 
-                        if (resultado < meta) {
-                            icone = '<span style="color: red;">&#x25BC;</span>'; 
-                        } else if (resultado > meta) {
-                            icone = '<span style="color: green;">&#x25B2;</span>'; 
-                        } else {
-                            icone = '<span style="color: gold;">&#9644;</span>'; 
+                        if(linhaMeta.cells[0].innerText.startsWith('%')){
+                            if (resultado < meta) {
+                                icone = '<span style="color: red;">&#x25BC;</span>'; 
+                            } else if (resultado > meta) {
+                                icone = '<span style="color: green;">&#x25B2;</span>'; 
+                            } else {
+                                icone = '<span style="color: gold;">&#9644;</span>'; 
+                            }
+                        }else{
+                            if (resultado > meta) {
+                                icone = '<span style="color: red;">&#x25BC;</span>'; 
+                            } else if (resultado < meta) {
+                                icone = '<span style="color: green;">&#x25B2;</span>'; 
+                            } else {
+                                icone = '<span style="color: gold;">&#9644;</span>'; 
+                            }
                         }
+
         
                         
                         linhaResultado.cells[j].innerHTML += ` ${icone}`; 

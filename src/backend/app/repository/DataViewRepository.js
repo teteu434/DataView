@@ -30,7 +30,7 @@ class DataViewRepository {
 
             for (const regiao of regioes) {
                 const result = await banco.query(
-                    `SELECT * FROM pactuacao WHERE Gerencia = $1`, [regiao]
+                    `SELECT * FROM pactuacao WHERE Gerencia = $1 ORDER BY id`, [regiao]
                 );
                 resultados[regiao] = result.rows;
             }
