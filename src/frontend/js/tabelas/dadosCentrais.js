@@ -60,8 +60,9 @@ export async function preencherTabelaDadosCentrais(gerenciaSelecionada, agencia,
             area: item.area
           }))
     } 
-    
+
     if(agencias.includes(agencia)) {
+
         const aux = dados.filter(item => item.unidade == agencia)
         aux.forEach( dado =>{
             
@@ -93,9 +94,7 @@ export async function preencherTabelaDadosCentrais(gerenciaSelecionada, agencia,
         })
         
         }else{
-            const result = dados.filter(item => item.srgex == gerenciaSelecionada).map(item => [
-                item.matricula, item.servidor, item.situacao, item.srgex, item.unidade, item.ol, item.funcao, item.formacao, item.regime, item.area
-            ]);
+            const result = dados.filter(item => item.srgex == gerenciaSelecionada)
 
             result.forEach( dado =>{
                 inner += `<tr>`

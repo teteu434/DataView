@@ -48,7 +48,7 @@ $(async function() {
           width: 4,
           colors: ["transparent"]
       },
-        colors: ["#02c27a", "#0d6efd", "#9ba7b2", "#c2c202"],
+      colors: ["#02c27a", "#0d6efd", "#9ba7b2", "#c2c202", "#fd0d15"],
         grid: {
           show: true,
           borderColor: 'rgba(0, 0, 0, 0.15)',
@@ -143,7 +143,7 @@ $(async function() {
         document.getElementById('gerenciaSelect').addEventListener('change', (event)=> {
           event.preventDefault();
           const gerenciaSelecionada = event.target.value;
-          if(gerenciaSelecionada == "TOTAL") preencheTotalMeio(chart, dadosMeio) 
+          if(gerenciaSelecionada == "TOTAL") preencheTotalMeio(dadosMeio, chart) 
           else preencheGEXMeio(dadosMeio, gerenciaSelecionada, chart)
     
           atualizaGraficoPizzaMeio(dadosMeio, chart2, chart1, gerenciaSelecionada);

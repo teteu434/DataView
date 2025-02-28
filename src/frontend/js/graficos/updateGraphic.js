@@ -121,25 +121,43 @@ export async function preencheTotalFim(chart, dadosFim) {
     }
     },
     xaxis : {
-      categories: dados10.filter(item => item.gex != "TOTAL").map(item => item.gex)
+      categories: dadosFim.filter(item => item.gex != "TOTAL").map(item => item.gex)
     }
   })
 } 
 
 export async function preencheGEXMeio(dadosMeio, gerenciaSelecionada, chart) {
-  chart.updateSeries([{
-    name: "Servidores Gex",
-    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.servidorgex)
-  }, {
-    name: "Atendimento",
-    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.atendimento)
-  }, {
-    name: "Central de Análise",
-    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.analise)
-  }, {
-    name: "Benefício",
-    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.beneficio)
 
+  chart.updateSeries([{
+    name: "SGREC",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sgrec)
+  }, {
+    name: "SAREC",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sarec)
+  }, {
+    name: "SARD",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sard)
+  }, {
+    name: "SAMB",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.samb)
+  }, {
+    name: "SADJ",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sadj)
+  }, {
+    name: "SAMC",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.samc)
+  }, {
+    name: "SGBEN",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sgben)
+  }, {
+    name: "SAIS",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sais)
+  }, {
+    name: "SESTRD",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sestrd)
+  }, {
+    name: "SESTMAN",
+    data: dadosMeio.filter(item => item.gex == gerenciaSelecionada).map(item => item.sestman)
 }])
 
 chart.updateOptions({
@@ -159,6 +177,8 @@ chart.updateOptions({
 })
 }
 
+
+
 export async function preencheTotalMeio(dadosMeio, chart) {
   chart.updateSeries([{
       name: "Servidores Gex",
@@ -172,7 +192,7 @@ export async function preencheTotalMeio(dadosMeio, chart) {
     }, {
       name: "Benefício",
       data: dadosMeio.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II").map(item => item.beneficio)
-
+      
   }])
 
   chart.updateOptions({
@@ -185,7 +205,7 @@ export async function preencheTotalMeio(dadosMeio, chart) {
       }
       },
       xaxis : {
-        categories: dadosAps.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II" )
+        categories: dadosMeio.filter(item => item.gex != "TOTAL" && item.gex != "SUPERINTENDENCIA REGIONAL SUDESTE II" )
         .map(item => item.gex)
       }
     
