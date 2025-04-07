@@ -159,6 +159,8 @@ $(async function() {
     chart3.render();
 
 
+    //ATUALIZA OS GRAFICOS
+
     document.getElementById('srGex').addEventListener('change', (event)=> {
       event.preventDefault();
       const selecao = event.target.value;

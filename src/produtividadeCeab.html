@@ -40,7 +40,7 @@
     <div class="search-bar flex-grow-1">
       <div class="position-relative">
         <select class="form-select" id="gerenciaSelect" > 
-          <option selected="" disabled>Selecione uma gerência</option>
+          <option selected="" value="TOTAL" disabled>Selecione uma gerência</option>
           <option value="Vitória">07001 - Gerência Executiva Vitória</option>
           <option value="Belo Horizonte">11001 - Gerência Executiva Belo Horizonte</option>
           <option value="Barbacena">11021 - Gerência Executiva Barbacena</option>
@@ -102,7 +102,7 @@
             </li>
             <li><a href="gexFim.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (Fim)</a>
             </li>
-            <li><a href="gexMeio.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (MEIO)</a>
+            <li><a href="gexMeio.html"><i class="material-icons-outlined">arrow_right</i>Cadastro GEX (Meio)</a>
             </li>
             <li><a href="produtividadeCeab.html"><i class="material-icons-outlined">arrow_right</i>Produtividade GEX</a>
             </li>
@@ -143,21 +143,26 @@
   <!--start main wrapper-->
   <main class="main-wrapper">
     <div class="main-content">
+
+          
       <!--breadcrumb-->
-				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">DataViewINSS</div>
-					<div class="ps-3">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb mb-0 p-0">
-								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-								</li>
-								<li class="breadcrumb-item active" aria-current="page">Versão Beta</li>
-							</ol>
-						</nav>
-					</div>
-					<button id="customizar" class="btn btn-primary m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
+	<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3 gap-5">
+		<div class="breadcrumb-title pe-3">DataViewINSS
+        </div>
+			<div class="ps-3">
+				<nav aria-label="breadcrumb">
+				    <ol class="breadcrumb mb-0 p-0">
+						<li class="breadcrumb-item"><i class="bx bx-home-alt"></i>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Versão Beta</li>
+					</ol>
+				</nav>
+			</div>
+
+			<button id="customizar" class="btn btn-primary m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
             <i class="material-icons-outlined">tune</i>Customize
           </button>
+
           
           <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="staticBackdrop">
             <div class="offcanvas-header border-bottom h-70">
@@ -189,66 +194,95 @@
                     </label>
                   </div>
                 </div><!--end row-->
-        
+                
               </div>
             </div>
           </div>
-				</div>
+
+	</div>
 				<!--end breadcrumb-->
       
-        <h3 id="textoCentral" class="mb-0 text-uppercase"></h3>
+        <h3 id="textoCentral" class="mb-0 text-uppercase">Cadastro Geral</h3>
+        <div class="dropdown">
+            <select class="form-select w-auto d-flex ms-auto" id="mesSelect"> 
+                <option selected="" disabled>Selecione um mês</option>
+                <option value="janeiro">Janeiro</option>
+                <option value="fevereiro">Fevereiro</option>
+                <option value="marco">Março</option>
+                <option value="abril">Abril</option>
+                <option value="maio">Maio</option>
+                <option value="junho">Junho</option>
+                <option value="julho">Julho</option>
+                <option value="agosto">Agosto</option>
+                <option value="setembro">Setembro</option>
+                <option value="outubro">Outubro</option>
+                <option value="novembro">Novembro</option>
+                <option value="dezembro">Dezembro</option>
+              </select>
+        </div>
 				<hr>
           				      
 			  
-				<div class="card">
-        
-					<div class="card-body">
-            <div class="row">
+		<div class="card">
+			<div class="card-body">
+            
+                <div class="row">
 
               <div class="col-12 col-xl-12 d-flex">
                 <div class="card rounded-4 w-100">
                   <div class="card-body">
                     <div class="d-flex align-items-center justify-content-around flex-wrap gap-4 p-4">
                       
-                      <div class="fixed-box-2">
-                        <h3 id="servidores" class="number-box"></h3>
-                        <p class="info-box">Total de Servidores</p>
+                      <div class="fixed-box-3">
+                        <h3 id="pontuacaoceab" class="number-box"></h3>
+                        <p class="info-box">% batimento de meta CEAB</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box-2">
-                        <h3 id="integral" class="number-box"></h3>
-                        <p class="info-box">Total PGD Integral</p>
+                      <div class="fixed-box-3">
+                        <h3 id="pontuacaoceabrid" class="number-box"></h3>
+                        <p class="info-box">% batimento de meta CEAB RID</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box-2">
-                        <h3 id="parcial" class="number-box"></h3>
-                        <p class="info-box">Total PGD Parcial</p>
+                      <div class="fixed-box-3">
+                        <h3 id="pontuacaoceabman" class="number-box"></h3>
+                        <p class="info-box">% batimento de meta CEAB MAN</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box-2">
-                        <h3 id="presencial" class="number-box"></h3>
-                        <p class="info-box">Total PGD Presencial</p>
+                      <div class="fixed-box-3">
+                        <h3 id="pontuacaoceabdj" class="number-box"></h3>
+                        <p class="info-box">% batimento de meta CEAB DJ</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box-2">
-                        <h3 id="gex" class="number-box"></h3>
-                        <p class="info-box">Servidores GEX</p>
+                      <div class="fixed-box-3">
+                        <h3 id="pontuacaoceabmob" class="number-box"></h3>
+                        <p class="info-box">% batimento de meta CEAB MOB</p>
+                      </div>
+                      
+                      <div class="fixed-box-3">
+                        <h3 id="porcentagemceab" class="number-box"></h3>
+                        <p class="info-box">Valor pontuação mensal por servidor CEAB</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box-2">
-                        <h3 id="atendimento" class="number-box"></h3>
-                        <p class="info-box">Servidores Atendimento</p>
+                      <div class="fixed-box-3">
+                        <h3 id="porcentagemceabrid" class="number-box"></h3>
+                        <p class="info-box">Valor pontuação mensal por servidor CEAB RID</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box-2">
-                        <h3 id="analise" class="number-box"></h3>
-                        <p class="info-box">Servidores Centrais</p>
+                      <div class="fixed-box-3">
+                        <h3 id="porcentagemceabman" class="number-box"></h3>
+                        <p class="info-box">Valor pontuação mensal por servidor CEAB MAN</p>
                       </div>
                       <div class="vr"></div>
-                      <div class="fixed-box-2">
-                        <h3 id="beneficio" class="number-box"></h3>
-                        <p class="info-box">Servidores Benefício</p>
+                      <div class="fixed-box-3">
+                        <h3 id="porcentagemceabdj" class="number-box"></h3>
+                        <p class="info-box">Valor pontuação mensal por servidor CEAB DJ</p>
                       </div>
+                      <div class="vr"></div>
+                      <div class="fixed-box-3">
+                        <h3 id="porcentagemceabmob" class="number-box"></h3>
+                        <p class="info-box">Valor pontuação mensal por servidor CEAB MOB</p>
+                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -259,11 +293,11 @@
                 <div class="card">
                   <div class="card-header py-3">
                     <div class="d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Tipos de PGD</h5>
+                      <h5 class="mb-0">CEAB RID</h5>
                     </div>
                   </div>
                   <div class="card-body">
-                    <div id="PGD"></div>
+                    <div id="CEABRID"></div>
                   </div>
                 </div>
               </div>
@@ -271,11 +305,35 @@
                 <div class="card">
                   <div class="card-header py-3">
                     <div class="d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Servidores GEX</h5>
+                      <h5 class="mb-0">CEAB MAN</h5>
                     </div>
                   </div>
                   <div class="card-body">
-                    <div id="servidorGex"></div>
+                    <div id="CEABMAN"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-xl-6">
+                <div class="card">
+                  <div class="card-header py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0">CEAB DJ</h5>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="CEABDJ"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-xl-6">
+                <div class="card">
+                  <div class="card-header py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0">CEAB MOB</h5>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="CEABMOB"></div>
                   </div>
                 </div>
               </div>
@@ -284,6 +342,10 @@
                   <div class="card-header py-3">
                     <div class="d-flex align-items-center justify-content-between">
                       <h5 class="mb-0">Gex/SR</h5>
+                      <div class="dropdown">
+                        <select class="form-select" id="srGex"> 
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div class="card-body">
@@ -316,7 +378,22 @@
 
 					</div>
 				</div>
-        
+        <div class="modal fade" id="exampleExtraLargeModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">TABELA DE PONTUAÇÃO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                VOU COLOCAR A TABELA AQUI
+              </div>
+
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>  
 
 
     </div>
@@ -338,40 +415,41 @@
 
   <!--end cart-->
   <script type="module">
-    import { usuario, valoresGexMeio } from "./frontend/js/config.js";
-    import { preencherTabelaDadosCentrais } from "./frontend/js/tabelas/dadosCentraisGex.js"
+    import { usuario, agencias, atualizarDados } from "./frontend/js/config.js";
+    import { preencherTabelaDadosCentraisProdutividade } from "./frontend/js/tabelas/dadosCentraisProdutividade.js"
 
+    const estado = {
+      mes: 'marco',
+      gerenciaSelecionada: 'TOTAL',
+      agencia: null
+    }
 
+    
+    
     document.addEventListener("DOMContentLoaded", async () => {
       await usuario();
-      await valoresGexMeio("TOTAL");
-      await preencherTabelaDadosCentrais("TOTAL", null, "meio").then(() => {
-        if ($.fn.DataTable.isDataTable('#tabelaDados')) {
-        $('#tabelaDados').DataTable().destroy();
-        }
-        $(document).ready(function() {
-			    $('#tabelaDados').DataTable();
-		    } );
-      })
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
     });
     
-    document.getElementById('gerenciaSelect').addEventListener('change', (event)=> {
+    document.getElementById('gerenciaSelect').addEventListener('change', async (event)=> {
       event.preventDefault();
-      const gerenciaSelecionada = event.target.value;
-      valoresGexMeio(gerenciaSelecionada)
-      preencherTabelaDadosCentrais(gerenciaSelecionada, null, "meio").then(() => {
-        if ($.fn.DataTable.isDataTable('#tabelaDados')) {
-        $('#tabelaDados').DataTable().destroy();
-        }
-        $(document).ready(function() {
-			    $('#tabelaDados').DataTable();
-		    } );
-        
-      })
-
-
+      estado.gerenciaSelecionada = event.target.value;
+      agencias(estado.gerenciaSelecionada);
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
     })
 
+    document.getElementById('srGex').addEventListener('change', async (event) => {
+      event.preventDefault();
+      estado.agencia = event.target.value;
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
+    })
+
+    document.getElementById('mesSelect').addEventListener('change', async (event) => {
+      event.preventDefault();
+      estado.mes = event.target.value;
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
+      
+    })
     
   </script>
 
@@ -394,7 +472,7 @@
   
   <script src="./public/simplebar/js/simplebar.min.js"></script>
   <script src="./frontend/js/main.js"></script>
-  <script type="module" src="./frontend/js/graficos/gexMeioCustom.js"></script>
+  <script type="module" src="./frontend/js/graficos/produtividadeCustom.js"></script>
   <script src="./frontend/js/graficos/apexcharts.min.js"></script>
 
 

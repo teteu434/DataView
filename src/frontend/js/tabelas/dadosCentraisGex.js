@@ -2,7 +2,23 @@
 export async function preencherTabelaDadosCentrais(gerenciaSelecionada, agencia, gex){
     return new Promise (async(resolve) =>{
     const { fetchData } = await import('../extrairData.js');
-    const resultado = await fetchData("dadosCentrais");
+    const result = await fetchData("dadosCentrais");
+    const resultado = result.map(item => ({
+        matricula: item.matricula,
+        servidor: item.servidor,
+        situacao: item.situacao,
+        srgex: item.srgex,
+        unidade: item.unidade,
+        ol: item.ol,
+        funcao: item.funcao,
+        formacao: item.formacao,
+        regime: item.regime,
+        ingresso: item.ingresso,
+        area: item.area,
+        ceab: item.ceab,
+        tipoceab: item.tipoceab,
+        atendimentoaps: item.atendimentoaps
+      }))
     const agencias = resultado.map(item => item.unidade);
     var dados;
     var inner = `<thead>

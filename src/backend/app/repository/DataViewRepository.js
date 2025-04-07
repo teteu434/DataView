@@ -83,6 +83,17 @@ class DataViewRepository {
         })
     }
 
+    gexFimTeste(){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const resultado = await banco.query('select * from gexfim')
+                return resolve(JSON.parse(JSON.stringify(resultado.rows)))
+            } catch (error) {
+                return reject(error)
+            }
+        })
+    }
+
     gexMeio(){
         return new Promise(async (resolve, reject) => {
             try {
@@ -114,6 +125,8 @@ class DataViewRepository {
                 return reject(error)
             }
         })    }
+
+    
 
 
     insertUser(usuario, email, pass, adm, contaHabilitada){

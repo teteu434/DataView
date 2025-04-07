@@ -17,7 +17,7 @@ router.get('/index.html', authenticate.autenticarRotaFront, (req, res) =>{
     res.sendFile(path.join(__dirname, '../index.html'))
 })
 router.get('/adm.html', authenticate.autenticarRotaFront, (req, res) =>{
-    res.sendFile(path.join(__dirname, '../adm.html'))
+    res.sendFile(path.join(__dirname, '../adm.html'));
 })
 router.get('/login.html', (req, res) =>{
     res.sendFile(path.join(__dirname, '../login.html'))
@@ -29,6 +29,7 @@ router.get('/users', authenticate.autenticaRotaAdm, DataViewController.users)
 router.get('/gexGeral', authenticate.autenticaRotaUsuario, DataViewController.gexGeral)
 router.get('/gexMeio', authenticate.autenticaRotaUsuario, DataViewController.gexMeio)
 router.get('/gexFim', authenticate.autenticaRotaUsuario, DataViewController.gexFim)
+router.get('/gexFimTeste', DataViewController.gexFimTeste)
 router.get('/dadosCentrais', authenticate.autenticaRotaUsuario, DataViewController.dadosCentrais)
 router.get('/sr2', authenticate.autenticaRotaUsuario, DataViewController.sr2)
 router.get('/dadosAps', authenticate.autenticaRotaUsuario, DataViewController.dadosAps)

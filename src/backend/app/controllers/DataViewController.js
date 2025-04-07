@@ -33,6 +33,15 @@ class DataViewController {
             res.json(error)
         }
     }
+
+    async gexFimTeste(req,res){
+        try {
+            const resultado = await DataViewRepository.gexFimTeste();
+            res.json(resultado)
+        } catch (error) {
+            res.json(error)
+        }
+    }
     
     async gexMeio(req,res){
         try {
