@@ -37,4 +37,4 @@ export function pesquisando(query) {
      
 }
 
-export const reqLocal = 'https://dataviewinss.onrender.com';
+export const reqLocal = 'http://localhost:3000';

@@ -213,8 +213,7 @@ export async function preencheTotalMeio(dadosMeio, chart) {
 }
 
 export async function atualizaGraficoBarraCeab(chart, ceab, dados, mes){
-    console.log(ceab, mes, Object.entries(dados[0]).filter(([chave]) => chave == `pontuacaoceab${ceab}${mes}`).map(([, valor]) => valor )
-    , Object.entries(dados[0]).filter(([chave]) => chave == `metaceab${ceab}${mes}`).map(([, valor]) => valor ))
+
     chart.updateSeries([{
       name: "Pontuação",
       data: Object.entries(dados[0]).filter(([chave]) => chave == `pontuacaoceab${ceab}${mes}`).map(([, valor]) => valor )
@@ -228,6 +227,10 @@ export async function atualizaGraficoBarraCeab(chart, ceab, dados, mes){
         categories: [mes]
       }
     })
+}
+
+export async function atualizaGraficoGexSr(chart, ceab, data, mes, agencia){
+    
 }
 
 

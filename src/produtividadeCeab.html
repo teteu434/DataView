@@ -205,7 +205,7 @@
         <h3 id="textoCentral" class="mb-0 text-uppercase">Cadastro Geral</h3>
         <div class="dropdown">
             <select class="form-select w-auto d-flex ms-auto" id="mesSelect"> 
-                <option selected="" disabled>Selecione um mês</option>
+                <option selected="" value="marco" disabled>Selecione um mês</option>
                 <option value="janeiro">Janeiro</option>
                 <option value="fevereiro">Fevereiro</option>
                 <option value="marco">Março</option>
@@ -366,6 +366,8 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
+                    <button id="spinner" class="btn btn-success d-none" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <span class="visually-hidden">Loading...</span></button>
                     <table id="tabelaDados" class="table table-striped table-bordered">
                     </table>
                 </div>
@@ -385,8 +387,13 @@
                 <h5 class="modal-title">TABELA DE PONTUAÇÃO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+
               <div class="modal-body">
-                VOU COLOCAR A TABELA AQUI
+                <button id="spinner2" class="btn btn-success d-none" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span class="visually-hidden">Loading...</span></button>
+                <table id="tabelaPontuacao" class="table table-striped table-bordered">
+                </table>
+
               </div>
 
               <div class="modal-footer">
@@ -415,11 +422,11 @@
 
   <!--end cart-->
   <script type="module">
-    import { usuario, agencias, atualizarDados } from "./frontend/js/config.js";
+    import { usuario, agencias, atualizarDados, adicionarEventosPontuacao } from "./frontend/js/config.js";
     import { preencherTabelaDadosCentraisProdutividade } from "./frontend/js/tabelas/dadosCentraisProdutividade.js"
 
     const estado = {
-      mes: 'marco',
+      mes: 'abril',
       gerenciaSelecionada: 'TOTAL',
       agencia: null
     }
@@ -428,26 +435,26 @@
     
     document.addEventListener("DOMContentLoaded", async () => {
       await usuario();
-      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia, '', 'tabelaDados')
     });
     
     document.getElementById('gerenciaSelect').addEventListener('change', async (event)=> {
       event.preventDefault();
       estado.gerenciaSelecionada = event.target.value;
       agencias(estado.gerenciaSelecionada);
-      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia, 'gerenciaSelect', 'tabelaDados')
     })
 
     document.getElementById('srGex').addEventListener('change', async (event) => {
       event.preventDefault();
       estado.agencia = event.target.value;
-      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia, 'srGexSelect','tabelaDados')
     })
 
     document.getElementById('mesSelect').addEventListener('change', async (event) => {
       event.preventDefault();
       estado.mes = event.target.value;
-      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia)
+      await atualizarDados(estado.mes, estado.gerenciaSelecionada, estado.agencia, 'mesSelect', 'tabelaDados')
       
     })
     

@@ -1,3 +1,5 @@
+import { tabelaPontuacao } from './tabelas/dadosCentraisProdutividade.js';
+
 
 export function calculaPorcentagem(mes, aux, controlePorcentagem){
     const resultado = {};
@@ -41,13 +43,14 @@ export function calcularTipoPorcentagem(gerencias, tipos, mes) {
     const resultados = {};
   
     tipos.forEach(tipo => resultados[tipo] = []);
+    
   
     for (let i = 0; i < limite; i++) {
       tipos.forEach(tipo => {
         const dados = Object.entries(gerencias[i]).filter(([chave]) =>
           chave.includes(`${tipo}${mes}`)
         );
-  
+
         const resultado = calculaPorcentagem(mes, dados, false);
         resultados[tipo][i] = resultado[tipo];
       });
@@ -55,7 +58,20 @@ export function calcularTipoPorcentagem(gerencias, tipos, mes) {
   
     return resultados;
   }
-  
+
+export function adicionarEventosPontuacao (){
+    document.querySelectorAll('.link-popup').forEach(link => {
+        
+        link.addEventListener('click', async function (event) {
+            event.preventDefault();
+            const mes = document.getElementById("mesSelect").value;
+            const row = this.closest('tr');
+            const matricula = row.querySelector('.matricula').textContent.trim();
+            carregandoTabelas('tabelaPontuacao', 'spinner2')
+            await tabelaPontuacao(matricula, mes);
+        });
+      });
+}
 
 export async function usuario() {
     const { fetchData } = await import('./extrairData.js');
@@ -63,19 +79,44 @@ export async function usuario() {
     document.getElementById('user').innerHTML = `Olá, ${sessao.usuario}`
 }
 
-export async function carregando() {
-    document.getElementById("gerenciaSelect").addEventListener("change", function () {
-        const spinner = document.getElementById("spinner");
-        const tableContainer = document.getElementById("tabelaPactuacao");
+export async function carregandoTabelas(tabela, spinner) {
     
-        spinner.classList.remove("d-none");
+        const spin = document.getElementById(spinner);
+        const tableContainer = document.getElementById(tabela);
+
+        spin.classList.remove("d-none");
         tableContainer.classList.add("blur"); 
 
         setTimeout(() => {
-            spinner.classList.add("d-none"); 
+            spin.classList.add("d-none"); 
             tableContainer.classList.remove("blur"); 
-        }, 2000);
-    });
+        }, 2500);
+    
+}
+
+export async function carregandoTabelaProdutividade(gerenciaSelecionada, agencia, mes, tabela) {
+    const { preencherTabelaDadosCentraisProdutividade } = await import('./tabelas/dadosCentraisProdutividade.js');
+    
+        const spinner = document.getElementById("spinner");
+        const tableContainer = document.getElementById(tabela);
+
+        spinner.classList.remove("d-none");
+        tableContainer.classList.add("blur");
+
+        await preencherTabelaDadosCentraisProdutividade(gerenciaSelecionada, agencia, mes).then(() => {
+            if ($.fn.DataTable.isDataTable(`#${tabela}`)) {
+                $(`#${tabela}`).DataTable().destroy();
+            }
+            $(document).ready(function() {
+                $(`#${tabela}`).DataTable();
+            });
+        })
+
+
+        spinner.classList.add("d-none"); 
+        tableContainer.classList.remove("blur");    
+
+    
 }
 
 export async function contas(){
@@ -226,20 +267,26 @@ export async function valoresGexMeio(gerenciaSelecionada){
 }
 
 
-export async function atualizarDados(mes, gerenciaSelecionada, agencia) {
-
+export async function atualizarDados(mes, gerenciaSelecionada, agencia, dropdown, tabela) {
     const { preencherTabelaDadosCentraisProdutividade } = await import('./tabelas/dadosCentraisProdutividade.js');
     await valoresProdutividadeGex(gerenciaSelecionada, mes)
 
-    preencherTabelaDadosCentraisProdutividade(gerenciaSelecionada, agencia, mes).then(() => {
-        if ($.fn.DataTable.isDataTable('#tabelaDados')) {
-        $('#tabelaDados').DataTable().destroy();
-        }
-        $(document).ready(function() {
-			    $('#tabelaDados').DataTable();
-		    } );
+    if(dropdown == '') {
         
-    })
+        await preencherTabelaDadosCentraisProdutividade(gerenciaSelecionada, agencia, mes).then(() => {
+            if ($.fn.DataTable.isDataTable(`#${tabela}`)) {
+            $(`#${tabela}`).DataTable().destroy();
+            }
+            $(document).ready(function() {
+                    $(`#${tabela}`).DataTable();
+            });
+        })
+    } else {
+        console.log('teste')
+        await carregandoTabelaProdutividade(gerenciaSelecionada, agencia, mes, tabela)
+    }
+    
+
 
 }
 

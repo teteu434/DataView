@@ -284,7 +284,6 @@ const {ceabrid, ceabman, ceabdj} = calcularTipoPorcentagem(gerencias, ['ceabrid'
     const gerenciaSelecionada = event.target.value;
     const mes = document.getElementById("mesSelect").value;
     const data = dados.filter(item => item.gex == gerenciaSelecionada);
-    console.log(data)
     atualizaGraficoBarraCeab(chartRid, 'rid', data, mes)
     atualizaGraficoBarraCeab(chartMob, 'mob', data, mes)
     atualizaGraficoBarraCeab(chartMan, 'man', data, mes)
@@ -297,12 +296,20 @@ const {ceabrid, ceabman, ceabdj} = calcularTipoPorcentagem(gerencias, ['ceabrid'
     const gerenciaSelecionada = document.getElementById("gerenciaSelect").value;
     console.log(gerenciaSelecionada)
     const data = dados.filter(item => item.gex == gerenciaSelecionada);
-    console.log(data)
     atualizaGraficoBarraCeab(chartRid, 'rid', data, mes)
     atualizaGraficoBarraCeab(chartMob, 'mob', data, mes)
     atualizaGraficoBarraCeab(chartMan, 'man', data, mes)
     atualizaGraficoBarraCeab(chartDj, 'dj', data, mes)
   })
+
+  /*document.getElementById('gerenciaSelect').addEventListener('change', (event)=> {
+    event.preventDefault();
+    const agencia = event.target.value;
+    const gerenciaSelecionada = document.getElementById("gerenciaSelect").value;
+    const mes = document.getElementById("mesSelect").value;
+    const data = dados.filter(item => item.gex == gerenciaSelecionada);
+    atualizaGraficoGexSr(chartRid, 'rid', data, mes, agencia)
+  })*/
 
 
 })

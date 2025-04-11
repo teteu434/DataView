@@ -32,6 +32,7 @@ router.get('/gexFim', authenticate.autenticaRotaUsuario, DataViewController.gexF
 router.get('/gexFimTeste', DataViewController.gexFimTeste)
 router.get('/dadosCentrais', authenticate.autenticaRotaUsuario, DataViewController.dadosCentrais)
 router.get('/sr2', authenticate.autenticaRotaUsuario, DataViewController.sr2)
+router.get('/buscaPontuacao', authenticate.autenticaRotaUsuario, DataViewController.buscaPontuacao)
 router.get('/dadosAps', authenticate.autenticaRotaUsuario, DataViewController.dadosAps)
 router.get('/confirmar-email', DataViewController.confirmaEmail)
 router.post('/confereSenha', DataViewController.confereSenha)

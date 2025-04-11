@@ -126,7 +126,9 @@ class DataViewRepository {
             }
         })    }
 
-    
+    buscaPontuacao(matricula, mes){
+        return consultaSimples(`select mes, matricula, servico, "pontuacaoDia", "pontuacaoMes", "valorBruto", "valorLiquido", "pontuacaoAPS" from "dadosPontuacao" where matricula = $1 and "mesApoio" = $2`, [matricula, mes], `Erro ao buscar dados.`)
+    }
 
 
     insertUser(usuario, email, pass, adm, contaHabilitada){

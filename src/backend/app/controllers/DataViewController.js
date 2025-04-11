@@ -85,6 +85,19 @@ class DataViewController {
         res.json(resultado);
     }
 
+    async buscaPontuacao(req,res){
+        try {
+            const {matricula, mes} = req.query;
+            console.log(matricula, mes)
+            const resultado = await DataViewRepository.buscaPontuacao(matricula, mes);
+            console.log(resultado)
+            if(resultado.resultado.length == 0) res.json({"correto": false})
+            else res.json({"correto": true, "resultado": resultado.resultado})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async sessao(req, res){
         try{
             const id = req.cookies.sessionId;

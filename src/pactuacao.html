@@ -231,14 +231,18 @@
 
   <script type="module">
     import { usuario } from "./frontend/js/config.js"
-    import { carregando } from "./frontend/js/config.js";
+    import { carregandoTabelaPactuacao } from "./frontend/js/config.js";
     import { preencherTabelaPactuacao } from "./frontend/js/tabelas/pactuacao.js"
       
     document.addEventListener("DOMContentLoaded", async () => {
-      await usuario();
-      carregando(); 
+      await usuario(); 
       await preencherTabelaPactuacao(); 
     });
+
+    document.getElementById('gerenciaSelect').addEventListener('change', async (event)=> {
+      await carregandoTabelas('tabelaPactuacao', 'spinner');
+    })
+
 
   </script>
 
